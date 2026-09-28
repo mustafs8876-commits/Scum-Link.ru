@@ -1,0 +1,518 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LinkScum — выбор игры</title>
+  <meta name="description" content="Выберите игру и перейдите к соответствующей странице интерфейса.">
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <style>
+    :root {
+      --home-purple: #8b5cf6;
+      --home-purple-2: #a855f7;
+      --home-ink: #07070c;
+      --home-card: rgba(22,22,31,.70);
+    }
+
+    body.game-home {
+      min-height: 100vh;
+      overflow-x: hidden;
+      color: #fff;
+      background:
+        radial-gradient(circle at 50% -15%, rgba(139,92,246,.22), transparent 38%),
+        radial-gradient(circle at 8% 62%, rgba(168,85,247,.14), transparent 34%),
+        radial-gradient(circle at 92% 52%, rgba(91,33,182,.20), transparent 31%),
+        linear-gradient(180deg, #0a0a10 0%, #07070c 100%);
+    }
+
+    .game-home .fx-stage { opacity: .86; }
+
+    .game-select {
+      position: relative;
+      min-height: 100vh;
+      padding: 70px 24px 86px;
+      display: flex;
+      align-items: center;
+      isolation: isolate;
+    }
+
+    .game-select::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(rgba(255,255,255,.018) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.018) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: linear-gradient(to bottom, transparent, black 18%, black 82%, transparent);
+      z-index: -1;
+    }
+
+    .game-select__inner {
+      width: min(1180px, 100%);
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .game-select__eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      margin-bottom: 18px;
+      padding: 8px 14px;
+      border: 1px solid rgba(255,255,255,.11);
+      border-radius: 999px;
+      color: rgba(255,255,255,.76);
+      background: rgba(255,255,255,.055);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+
+    .game-select__eyebrow i {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #a855f7;
+      box-shadow: 0 0 14px rgba(168,85,247,.9);
+      animation: liveDot 2s ease-in-out infinite;
+    }
+
+    .game-logo {
+      margin: 0;
+      font-size: clamp(52px, 7vw, 88px);
+      font-weight: 950;
+      line-height: .96;
+      letter-spacing: -.055em;
+      background: linear-gradient(90deg, #fff 0%, #d9c8ff 40%, #a855f7 72%, #7c3aed 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      filter: drop-shadow(0 14px 34px rgba(124,58,237,.18));
+    }
+
+    .game-select__lead {
+      width: min(760px, 100%);
+      margin: 22px auto 0;
+      color: rgba(255,255,255,.67);
+      font-size: clamp(16px, 2vw, 20px);
+      line-height: 1.72;
+    }
+
+    .game-grid {
+      width: min(1092px, 100%);
+      margin: 46px auto 0;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 28px;
+      perspective: 1200px;
+    }
+
+    .game-card {
+      position: relative;
+      min-width: 0;
+      height: 356px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.13);
+      border-radius: 19px;
+      color: #fff;
+      text-decoration: none;
+      background: rgba(43,45,51,.91);
+      box-shadow:
+        0 18px 34px rgba(0,0,0,.28),
+        inset 0 1px 0 rgba(255,255,255,.06);
+      -webkit-backdrop-filter: blur(15px) saturate(115%);
+      backdrop-filter: blur(15px) saturate(115%);
+      transform: translateZ(0);
+      transition:
+        transform .28s cubic-bezier(.2,.8,.2,1),
+        border-color .28s ease,
+        box-shadow .28s ease;
+    }
+
+    .game-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      pointer-events: none;
+      background: linear-gradient(120deg, transparent 32%, rgba(255,255,255,.13) 49%, transparent 66%);
+      transform: translateX(-130%);
+      transition: transform .8s cubic-bezier(.2,.8,.2,1);
+    }
+
+    .game-card:hover {
+      transform: translateY(-7px) scale(1.012);
+      border-color: rgba(168,85,247,.44);
+      box-shadow:
+        0 23px 48px rgba(0,0,0,.36),
+        0 0 34px rgba(124,58,237,.18),
+        inset 0 1px 0 rgba(255,255,255,.09);
+    }
+
+    .game-card:hover::after {
+      transform: translateX(130%);
+    }
+
+    .game-card__cover {
+      position: relative;
+      width: 100%;
+      height: 188px;
+      overflow: hidden;
+      background: #18191d;
+    }
+
+    .game-card__cover img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      object-position: center;
+      transform: scale(1);
+      transition: transform .45s cubic-bezier(.2,.8,.2,1), filter .45s ease;
+    }
+
+    .game-card:hover .game-card__cover img {
+      transform: scale(1.045);
+      filter: saturate(1.04) contrast(1.025);
+    }
+
+    .game-card__body {
+      height: 168px;
+      padding: 41px 22px 24px;
+      border-top: 1px solid rgba(255,255,255,.055);
+      text-align: center;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.018), rgba(255,255,255,0)),
+        rgba(46,48,54,.90);
+    }
+
+    .game-card__body h2 {
+      margin: 0;
+      color: #fff;
+      font-size: 21px;
+      font-weight: 900;
+      line-height: 1.18;
+      letter-spacing: -.025em;
+    }
+
+    .game-card__body p {
+      max-width: 210px;
+      min-height: 0;
+      margin: 13px auto 0;
+      color: rgba(236,237,243,.64);
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    .game-card__go {
+      display: none;
+    }
+
+    .game-home-float {
+      position: fixed;
+      right: 22px;
+      bottom: 24px;
+      display: grid;
+      gap: 11px;
+      z-index: 20;
+    }
+
+    .game-home-float a,
+    .game-home-float button {
+      position: relative;
+      width: 50px;
+      height: 50px;
+      padding: 0;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(255,255,255,.16);
+      border-radius: 50%;
+      color: #fff;
+      text-decoration: none;
+      background:
+        linear-gradient(145deg, rgba(255,255,255,.13), rgba(255,255,255,.035)),
+        rgba(17,17,24,.72);
+      -webkit-backdrop-filter: blur(20px) saturate(135%);
+      backdrop-filter: blur(20px) saturate(135%);
+      box-shadow:
+        0 13px 30px rgba(0,0,0,.30),
+        0 0 0 1px rgba(139,92,246,.035),
+        inset 0 1px 0 rgba(255,255,255,.13);
+      cursor: pointer;
+      overflow: hidden;
+      transition:
+        transform .28s cubic-bezier(.2,.8,.2,1),
+        border-color .28s ease,
+        box-shadow .28s ease,
+        background .28s ease;
+    }
+
+    .game-home-float a::before,
+    .game-home-float button::before {
+      content: "";
+      position: absolute;
+      inset: -45%;
+      border-radius: 50%;
+      background: conic-gradient(
+        from 180deg,
+        transparent,
+        rgba(168,85,247,.30),
+        transparent 34%,
+        rgba(124,58,237,.22),
+        transparent 72%
+      );
+      animation: homeFloatSpin 7s linear infinite;
+      opacity: .75;
+      pointer-events: none;
+    }
+
+    .game-home-float a::after,
+    .game-home-float button::after {
+      content: "";
+      position: absolute;
+      inset: 1px;
+      border-radius: inherit;
+      background: rgba(13,13,20,.78);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .game-home-float a:hover,
+    .game-home-float button:hover {
+      transform: translateY(-4px) scale(1.07);
+      border-color: rgba(190,153,255,.40);
+      background:
+        linear-gradient(145deg, rgba(255,255,255,.16), rgba(255,255,255,.05)),
+        rgba(25,18,39,.78);
+      box-shadow:
+        0 17px 38px rgba(0,0,0,.34),
+        0 0 36px rgba(124,58,237,.27),
+        inset 0 1px 0 rgba(255,255,255,.18);
+    }
+
+    .game-home-float svg {
+      position: relative;
+      z-index: 1;
+      width: 22px;
+      height: 22px;
+      display: block;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.9;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      filter: drop-shadow(0 0 8px rgba(187,150,255,.28));
+    }
+
+    .game-home-float .icon-fill {
+      fill: currentColor;
+      stroke: none;
+    }
+
+    .game-home-float__telegram {
+      color: #e8ddff;
+    }
+
+    .game-home-float__chat {
+      color: #fff;
+    }
+
+    .game-home-float__reviews {
+      color: #f1eaff;
+    }
+
+    .game-home-float__reviews:hover {
+      color: #fff;
+    }
+
+    @keyframes homeFloatSpin {
+      to { transform: rotate(360deg); }
+    }
+
+    .home-footer-note {
+      margin-top: 32px;
+      color: rgba(255,255,255,.37);
+      font-size: 12px;
+    }
+
+    @keyframes liveDot {
+      0%,100% { transform: scale(.82); opacity: .55; }
+      50% { transform: scale(1.18); opacity: 1; }
+    }
+    @keyframes coverOrbA {
+      from { transform: translate3d(-8px, -5px, 0) scale(.93); }
+      to { transform: translate3d(18px, 16px, 0) scale(1.08); }
+    }
+    @keyframes coverOrbB {
+      from { transform: translate3d(4px, 7px, 0) scale(.95); }
+      to { transform: translate3d(25px, -10px, 0) scale(1.14); }
+    }
+
+    @media (max-width: 980px) {
+      .game-grid {
+        width: min(560px, 100%);
+        grid-template-columns: repeat(2, minmax(0,1fr));
+        gap: 22px;
+      }
+      .game-select { padding-top: 52px; align-items: flex-start; }
+    }
+
+    @media (max-width: 620px) {
+      .game-select { padding: 38px 15px 88px; }
+      .game-logo { font-size: 54px; }
+      .game-select__lead { font-size: 15px; }
+      .game-grid {
+        width: min(330px, 100%);
+        grid-template-columns: 1fr;
+        gap: 18px;
+        margin-top: 34px;
+      }
+      .game-card { height: 382px; border-radius: 19px; }
+      .game-card__cover { height: 214px; }
+      .game-card__body { height: 168px; padding-top: 38px; }
+      .game-home-float { right: 14px; bottom: 16px; }
+      .game-home-float a, .game-home-float button { width: 44px; height: 44px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .game-card,
+      .game-card::after,
+      .game-card__cover img,
+      .game-select__eyebrow i,
+      .game-home-float a::before,
+      .game-home-float button::before {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+<body class="game-home">
+  <div class="fx-stage" aria-hidden="true">
+    <div class="fx-orb fx-orb--1"></div>
+    <div class="fx-orb fx-orb--2"></div>
+    <div class="fx-orb fx-orb--3"></div>
+    <div class="fx-mesh"></div>
+    <div class="fx-grain"></div>
+  </div>
+
+  <main class="game-select">
+    <div class="game-select__inner">
+      <div class="game-select__eyebrow"><i></i> Выбор игры</div>
+      <h1 class="game-logo">LinkScum</h1>
+      <p class="game-select__lead">
+        Выберите игру, чтобы перейти на соответствующую страницу интерфейса.
+        Структура сделана как в твоём видеореференсе, но в текущем чёрно‑бело‑фиолетовом glass-стиле.
+      </p>
+
+      <div class="game-grid">
+        <a class="game-card" href="standoff2.html">
+          <div class="game-card__cover">
+            <img src="assets/img/games/standoff2.png" alt="Standoff 2">
+          </div>
+          <div class="game-card__body">
+            <h2>Standoff 2</h2>
+            <p>Открыть страницу Standoff 2</p>
+          </div>
+        </a>
+
+        <a class="game-card" href="roblox.html">
+          <div class="game-card__cover">
+            <img src="assets/img/games/roblox.png" alt="Roblox">
+          </div>
+          <div class="game-card__body">
+            <h2>Roblox</h2>
+            <p>Открыть страницу Roblox</p>
+          </div>
+        </a>
+
+        <a class="game-card" href="brawl-clash.html">
+          <div class="game-card__cover">
+            <img src="assets/img/games/brawl-clash.png" alt="Brawl Stars / Clash Royale">
+          </div>
+          <div class="game-card__body">
+            <h2>Brawl Stars / Clash<br>Royale</h2>
+            <p>Открыть страницу игры</p>
+          </div>
+        </a>
+
+        <a class="game-card" href="pubg-mobile.html">
+          <div class="game-card__cover">
+            <img src="assets/img/games/pubg-mobile.png" alt="PUBG Mobile">
+          </div>
+          <div class="game-card__body">
+            <h2>PUBG Mobile</h2>
+            <p>Открыть страницу PUBG Mobile</p>
+          </div>
+        </a>
+      </div>
+
+      <div class="home-footer-note">Главная страница теперь работает как общий хаб для игровых разделов.</div>
+    </div>
+  </main>
+
+  <div class="game-home-float" aria-label="Быстрые действия">
+    <a class="game-home-float__telegram"
+       href="https://t.me/otzuvudimargx"
+       target="_blank"
+       rel="noopener noreferrer"
+       aria-label="Telegram"
+       title="Telegram">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path class="icon-fill" d="M21.7 3.3 18.4 19c-.2 1.1-.9 1.4-1.8.9l-5-3.7-2.4 2.3c-.3.3-.5.5-1 .5l.4-5.1 9.3-8.4c.4-.4-.1-.6-.6-.2L5.8 12.5.9 11c-1.1-.3-1.1-1.1.2-1.6L20.2 2c.9-.3 1.7.2 1.5 1.3Z"/>
+      </svg>
+    </a>
+
+    <button class="game-home-float__chat"
+            type="button"
+            aria-label="Чат"
+            title="Чат">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M20 11.5a7.5 7.5 0 0 1-8 7.47A8.7 8.7 0 0 1 8.4 18L4 19.2l1.25-3.75A7.5 7.5 0 1 1 20 11.5Z"/>
+        <path d="M8.5 11.5h.01M12 11.5h.01M15.5 11.5h.01"/>
+      </svg>
+    </button>
+
+    <a class="game-home-float__reviews"
+       href="https://t.me/otzuvudimargx"
+       target="_blank"
+       rel="noopener noreferrer"
+       aria-label="Отзывы"
+       title="Отзывы">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="m12 3 2.55 5.17 5.7.83-4.13 4.03.98 5.69L12 16.04 6.9 18.72l.98-5.69L3.75 9l5.7-.83L12 3Z"/>
+      </svg>
+    </a>
+  </div>
+
+  <script src="assets/js/app.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const chatButton = document.querySelector('.game-home-float__chat');
+  if (!chatButton) return;
+
+  chatButton.addEventListener('click', () => {
+    const reviews = document.querySelector('.game-home-float__reviews');
+    if (reviews) {
+      reviews.animate(
+        [
+          { transform: 'scale(1)' },
+          { transform: 'scale(1.13)' },
+          { transform: 'scale(1)' }
+        ],
+        { duration: 420, easing: 'cubic-bezier(.2,.8,.2,1)' }
+      );
+    }
+  });
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="540" viewBox="0 0 980 540">
+  <rect width="980" height="540" rx="26" fill="#1f2024"/>
+  <rect x="24" y="24" width="932" height="64" rx="14" fill="#292a2f"/>
+  <rect x="48" y="45" width="160" height="22" rx="6" fill="#f4c515" opacity=".9"/>
+  <g fill="#3b3c42">
+    <rect x="48" y="118" width="210" height="354" rx="18"/>
+    <rect x="282" y="118" width="650" height="94" rx="18"/>
+    <rect x="282" y="232" width="650" height="240" rx="18"/>
+  </g>
+  <g fill="#4c4d54">
+    <rect x="72" y="150" width="150" height="18" rx="9"/>
+    <rect x="72" y="186" width="126" height="14" rx="7"/>
+    <rect x="72" y="216" width="132" height="14" rx="7"/>
+    <rect x="72" y="246" width="108" height="14" rx="7"/>
+  </g>
+  <text x="606" y="173" text-anchor="middle" fill="#fafafa" font-family="Arial, sans-serif" font-size="34" font-weight="700">БЕЗОПАСНЫЙ ДЕМО-ЭКРАН</text>
+  <text x="606" y="310" text-anchor="middle" fill="#f4c515" font-family="Arial, sans-serif" font-size="54" font-weight="800">LINKSCUM</text>
+  <text x="606" y="355" text-anchor="middle" fill="#a9aab0" font-family="Arial, sans-serif" font-size="20">визуальная реконструкция интерфейса</text>
+</svg>

@@ -1,0 +1,9 @@
+{
+  "name": "linkscum-safe-visual-recreation",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Safe, non-operational visual reconstruction based on user-provided reference footage.",
+  "scripts": {
+    "start": "node server.js"
+  }
+}

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="520" height="880" viewBox="0 0 520 880">
+  <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#151619"/><stop offset="1" stop-color="#303138"/></linearGradient></defs>
+  <rect width="520" height="880" rx="34" fill="url(#g)"/>
+  <circle cx="260" cy="360" r="74" fill="#f4c515" opacity=".92"/>
+  <polygon points="238,318 238,402 314,360" fill="#191a1e"/>
+  <text x="260" y="520" text-anchor="middle" fill="#ffffff" font-family="Arial, sans-serif" font-size="34" font-weight="700">ДЕМО-ВИДЕО</text>
+  <text x="260" y="570" text-anchor="middle" fill="#a7a8ae" font-family="Arial, sans-serif" font-size="20">безопасная визуальная заглушка</text>
+  <rect x="60" y="700" width="400" height="18" rx="9" fill="#44464d"/>
+  <rect x="60" y="700" width="156" height="18" rx="9" fill="#f4c515"/>
+</svg>

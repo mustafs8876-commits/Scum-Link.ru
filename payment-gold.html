@@ -1,0 +1,20 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>LinkScum — безопасный макет оплаты</title><link rel="stylesheet" href="assets/css/styles.css"></head><body>
+<header class="header"><div class="container header__inner"><a class="brand" href="index.html">LinkScum.ru <small>DEMO</small></a><nav class="nav"><a href="index.html#reviews">Отзывы</a><a href="index.html#how">Как работает</a><a href="payment.html#tariffs">Тарифы</a><a href="index.html#advantages">Преимущества</a><button data-open-key>Ввести ключ</button><a href="index.html#contacts">TG канал</a></nav><button class="menu-btn" id="menuBtn">☰</button></div></header>
+<div class="mobile-nav" id="mobileNav"><a href="index.html#reviews">Отзывы</a><a href="index.html#how">Как работает</a><a href="payment.html#tariffs">Тарифы</a><a href="index.html#advantages">Преимущества</a><button data-open-key>Ввести ключ</button><a href="index.html#contacts">TG канал</a></div>
+<main><section class="section"><div class="container"><div class="pay-title"><h1>Оплата голдой (G)</h1><p>Безопасный визуальный макет оплаты игровой валютой — реальные переводы отключены</p></div>
+<div class="payment-layout"><aside class="summary"><h2>При оплате вы получите:</h2><div class="summary-item"><div>🛡</div><div><b>Интерфейс продукта</b><br><span>Точная визуальная реконструкция основных экранов</span></div></div><div class="summary-item"><div>🔗</div><div><b>Демо-ссылка</b><br><span>Локальный переход без внешних запросов</span></div></div><div class="summary-item"><div>◉</div><div><b>Безопасный режим</b><br><span>Нулевой сбор учетных данных и токенов</span></div></div><div class="summary-item"><div>🎧</div><div><b>Поддержка интерфейса</b><br><span>Все кнопки и уведомления работают локально</span></div></div></aside>
+<section class="checkout"><h2>♛ <span id="selectedPlan">EXTRA (Навсегда)</span></h2><p style="text-align:center;color:#aaa">Полный визуальный функционал</p><div class="price-box"><div>Стоимость</div><div class="price" id="selectedPrice">1998G</div><div>Демонстрационный режим • Gold</div></div><div class="card-demo"><div class="card-number"><span>GOLD • DEMO</span></div><div class="meta"><div><strong>Способ</strong>Игровая валюта</div><div><strong>Статус</strong>DEMO ONLY</div></div></div><div class="payment-note"><b>Оплата голдой:</b> здесь показан только визуальный сценарий. Реальная игровая валюта не принимается и не переводится.</div><div class="demo-banner">РЕАЛЬНЫЙ ПЕРЕВОД GOLD И ВЫДАЧА КЛЮЧЕЙ ОТКЛЮЧЕНЫ</div><div style="text-align:center;margin-top:22px"><button class="btn btn--hot" data-demo-action>✈ Написать админу</button></div></section></div>
+</div></section></main>
+<div class="floating"><button class="fab" data-demo-action>📣</button><button class="fab" data-demo-action>●</button><button class="fab" data-demo-action>★</button><button class="fab" id="scrollTop">←</button></div>
+<div class="modal" id="keyModal"><div class="modal__box"><button class="modal__close" data-close-modal>×</button><h2>Активация ключа</h2><form id="activateForm"><div class="form-row"><label for="activationKey">Ваш ключ активации:</label><input class="input" id="activationKey" placeholder="DEMO-KEY"></div><div class="form-actions"><button class="btn btn--hot" type="submit">◉ Активировать</button></div><div class="helper">Реальная активация отключена.</div></form></div></div><div class="toast" id="toast"></div><script src="assets/js/app.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const params = new URLSearchParams(location.search);
+  const t = params.get('tariff') || 'extra';
+  const names = {extra:'EXTRA (Навсегда)', week:'Неделя', days3:'3 дня'};
+  const prices = {extra:'2998G', week:'2398G', days3:'1998G'};
+  document.getElementById('selectedPlan') && (document.getElementById('selectedPlan').textContent = names[t] || names.extra);
+  document.getElementById('selectedPrice') && (document.getElementById('selectedPrice').textContent = prices[t] || prices.extra);
+});
+</script>
+</body></html>

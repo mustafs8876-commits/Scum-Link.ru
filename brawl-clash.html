@@ -1,0 +1,1061 @@
+<html lang="ru" style="--scroll-progress: 0.8217; --mx: 1300px; --my: 625px;" class="motion-ready"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LinkScum.ru — безопасная визуальная реконструкция</title>
+  <meta name="description" content="Безопасная неоперационная визуальная реконструкция интерфейса по предоставленному видеореференсу.">
+  <link rel="stylesheet" href="assets/css/styles.css">
+
+  <style>
+    /* Orange reviews CTA reconstructed from the provided reference */
+    .reviews-strip {
+      position: relative;
+      min-height: 150px;
+      display: grid;
+      place-items: center;
+      padding: 28px 18px;
+      border-top: 1px solid rgba(255,255,255,.06);
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      background:
+        radial-gradient(circle at 22% 35%, rgba(139, 92, 246, .20), transparent 34%),
+        radial-gradient(circle at 78% 65%, rgba(191, 90, 242, .18), transparent 36%),
+        linear-gradient(180deg, rgba(18,18,24,.72), rgba(8,8,13,.82));
+      -webkit-backdrop-filter: blur(18px) saturate(125%);
+      backdrop-filter: blur(18px) saturate(125%);
+      overflow: hidden;
+      isolation: isolate;
+    }
+    .reviews-strip::before,
+    .reviews-strip::after {
+      content: "";
+      position: absolute;
+      pointer-events: none;
+      border-radius: 999px;
+      filter: blur(28px);
+      z-index: -1;
+    }
+    .reviews-strip::before {
+      width: 430px;
+      height: 150px;
+      left: 17%;
+      top: 30%;
+      background: radial-gradient(circle, rgba(139,92,246,.42) 0%, rgba(124,58,237,.14) 45%, transparent 72%);
+      animation: reviewsPurpleGlowA 5.5s ease-in-out infinite alternate;
+    }
+    .reviews-strip::after {
+      width: 390px;
+      height: 135px;
+      right: 11%;
+      bottom: 4%;
+      background: radial-gradient(circle, rgba(217,70,239,.30) 0%, rgba(168,85,247,.12) 46%, transparent 72%);
+      animation: reviewsPurpleGlowB 6.8s ease-in-out infinite alternate;
+    }
+    .reviews-strip__link {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 13px;
+      min-width: 314px;
+      min-height: 64px;
+      padding: 10px 14px 10px 18px;
+      border: 1px solid rgba(255,255,255,.18);
+      border-radius: 999px;
+      color: #fff;
+      text-decoration: none;
+      font-size: 18px;
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: .01em;
+      background:
+        linear-gradient(135deg, rgba(255,255,255,.16), rgba(255,255,255,.04)),
+        linear-gradient(90deg, #8b5cf6 0%, #7c3aed 48%, #a855f7 100%);
+      box-shadow:
+        0 14px 34px rgba(124,58,237,.36),
+        0 0 55px rgba(139,92,246,.17),
+        inset 0 1px 0 rgba(255,255,255,.30);
+      transform: translateZ(0);
+      transition: transform .32s cubic-bezier(.2,.8,.2,1), box-shadow .32s ease, filter .32s ease;
+      isolation: isolate;
+      overflow: hidden;
+    }
+    .reviews-strip__link::before {
+      content: "";
+      position: absolute;
+      inset: -55% -25%;
+      background: linear-gradient(110deg, transparent 36%, rgba(255,255,255,.42) 49%, transparent 62%);
+      transform: translateX(-70%) rotate(8deg);
+      animation: reviewsShine 4.6s ease-in-out infinite;
+      pointer-events: none;
+      z-index: -1;
+    }
+    .reviews-strip__link::after {
+      content: "";
+      position: absolute;
+      inset: 1px;
+      border-radius: inherit;
+      background: radial-gradient(circle at 50% 0%, rgba(255,255,255,.24), transparent 44%);
+      pointer-events: none;
+      z-index: -1;
+    }
+    .reviews-strip__link:hover {
+      transform: translateY(-4px) scale(1.028);
+      box-shadow:
+        0 18px 42px rgba(124,58,237,.48),
+        0 0 70px rgba(168,85,247,.28),
+        inset 0 1px 0 rgba(255,255,255,.36);
+      filter: saturate(1.08) brightness(1.05);
+    }
+    .reviews-strip__star {
+      width: 22px;
+      height: 22px;
+      display: inline-grid;
+      place-items: center;
+      flex: 0 0 auto;
+      font-size: 22px;
+      line-height: 1;
+      color: #fff;
+      text-shadow: 0 0 16px rgba(255,255,255,.45);
+      transform-origin: center;
+      animation: reviewsStarPulse 2.4s ease-in-out infinite;
+    }
+    .reviews-strip__telegram {
+      width: 30px;
+      height: 30px;
+      flex: 0 0 auto;
+      display: inline-grid;
+      place-items: center;
+      border-radius: 50%;
+      background: rgba(255,255,255,.16);
+      border: 1px solid rgba(255,255,255,.20);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.22), 0 5px 14px rgba(0,0,0,.18);
+    }
+    .reviews-strip__telegram svg {
+      width: 18px;
+      height: 18px;
+      display: block;
+      fill: currentColor;
+      transform: translate(-1px, 1px);
+    }
+    .reviews-strip__label { white-space: nowrap; }
+    .reviews-strip__badge {
+      min-width: 84px;
+      min-height: 40px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 14px;
+      border: 1px solid rgba(255,255,255,.22);
+      border-radius: 999px;
+      background: rgba(255,255,255,.92);
+      color: #5b21b6;
+      font-size: 17px;
+      font-weight: 900;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.70), 0 6px 16px rgba(40,0,90,.24);
+      white-space: nowrap;
+    }
+    @keyframes reviewsPurpleGlowA {
+      0%   { opacity: .52; transform: translate3d(-18px,-8px,0) scale(.92); }
+      50%  { opacity: .95; transform: translate3d(38px,8px,0) scale(1.10); }
+      100% { opacity: .68; transform: translate3d(84px,-4px,0) scale(1.02); }
+    }
+    @keyframes reviewsPurpleGlowB {
+      0%   { opacity: .40; transform: translate3d(32px,15px,0) scale(.94); }
+      50%  { opacity: .82; transform: translate3d(-26px,-12px,0) scale(1.08); }
+      100% { opacity: .58; transform: translate3d(-72px,4px,0) scale(1.00); }
+    }
+    @keyframes reviewsShine {
+      0%, 28% { transform: translateX(-78%) rotate(8deg); opacity: 0; }
+      38%     { opacity: .85; }
+      58%     { transform: translateX(72%) rotate(8deg); opacity: 0; }
+      100%    { transform: translateX(72%) rotate(8deg); opacity: 0; }
+    }
+    @keyframes reviewsStarPulse {
+      0%, 100% { transform: rotate(0deg) scale(1); }
+      50% { transform: rotate(-9deg) scale(1.14); }
+    }
+    @media (max-width: 640px) {
+      .reviews-strip { min-height: 118px; padding: 22px 14px; }
+      .reviews-strip__link {
+        min-width: 0;
+        width: min(100%, 320px);
+        min-height: 58px;
+        gap: 9px;
+        padding: 9px 10px 9px 14px;
+        font-size: 15px;
+      }
+      .reviews-strip__badge { min-width: 72px; min-height: 37px; padding: 0 10px; font-size: 15px; }
+      .reviews-strip__star { width: 19px; height: 19px; font-size: 19px; }
+      .reviews-strip__telegram { width: 28px; height: 28px; }
+      .reviews-strip__telegram svg { width: 17px; height: 17px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .reviews-strip::before,
+      .reviews-strip::after,
+      .reviews-strip__star,
+      .reviews-strip__link::before { animation: none !important; }
+      .reviews-strip__link { transition: none !important; }
+    }  
+    /* Embedded demo video */
+    #demo .section-title {
+      background: linear-gradient(90deg, #ffffff 0%, #d8c7ff 45%, #a855f7 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .demo-video-shell {
+      position: relative;
+      width: min(390px, 92vw);
+      margin: 34px auto 0;
+      padding: 8px;
+      border-radius: 34px;
+      background:
+        linear-gradient(145deg, rgba(255,255,255,.18), rgba(255,255,255,.04)),
+        rgba(12,12,18,.58);
+      border: 1px solid rgba(255,255,255,.16);
+      box-shadow:
+        0 24px 70px rgba(0,0,0,.42),
+        0 0 70px rgba(124,58,237,.22),
+        inset 0 1px 0 rgba(255,255,255,.18);
+      -webkit-backdrop-filter: blur(22px) saturate(130%);
+      backdrop-filter: blur(22px) saturate(130%);
+      overflow: hidden;
+      isolation: isolate;
+    }
+    .demo-video-shell::before {
+      content: "";
+      position: absolute;
+      width: 190px;
+      height: 190px;
+      top: -75px;
+      right: -50px;
+      border-radius: 50%;
+      background: rgba(168,85,247,.34);
+      filter: blur(42px);
+      pointer-events: none;
+      animation: demoVideoGlow 5s ease-in-out infinite alternate;
+      z-index: -1;
+    }
+    .demo-video {
+      width: 100%;
+      aspect-ratio: 9 / 16;
+      display: block;
+      object-fit: cover;
+      border: 0;
+      border-radius: 27px;
+      background: #000;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.08);
+    }
+    .demo-video-hint {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 18px;
+      padding: 9px 14px;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 999px;
+      background: rgba(255,255,255,.06);
+      color: rgba(255,255,255,.78);
+      font-size: 13px;
+      -webkit-backdrop-filter: blur(14px);
+      backdrop-filter: blur(14px);
+    }
+    @keyframes demoVideoGlow {
+      from { transform: translate3d(-12px, 0, 0) scale(.92); opacity: .48; }
+      to   { transform: translate3d(18px, 20px, 0) scale(1.13); opacity: .88; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .demo-video-shell::before { animation: none !important; }
+    }
+
+  
+    .demo-video-shell {
+      position: relative;
+    }
+    .demo-video-play {
+      position: absolute;
+      inset: 0;
+      margin: auto;
+      width: 112px;
+      height: 112px;
+      border: 1px solid rgba(255,255,255,.28);
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background:
+        linear-gradient(145deg, rgba(255,255,255,.18), rgba(255,255,255,.04)),
+        linear-gradient(135deg, #8b5cf6 0%, #7c3aed 48%, #a855f7 100%);
+      color: #fff;
+      box-shadow:
+        0 20px 60px rgba(124,58,237,.48),
+        0 0 80px rgba(168,85,247,.28),
+        inset 0 1px 0 rgba(255,255,255,.34);
+      -webkit-backdrop-filter: blur(18px) saturate(135%);
+      backdrop-filter: blur(18px) saturate(135%);
+      cursor: pointer;
+      z-index: 4;
+      transition: transform .28s cubic-bezier(.2,.8,.2,1),
+                  box-shadow .28s ease,
+                  opacity .24s ease,
+                  visibility .24s ease;
+      animation: demoPlayPulse 2.8s ease-in-out infinite;
+    }
+    .demo-video-play::before {
+      content: "";
+      position: absolute;
+      inset: -16px;
+      border: 1px solid rgba(168,85,247,.24);
+      border-radius: 50%;
+      animation: demoPlayRing 2.8s ease-out infinite;
+    }
+    .demo-video-play:hover {
+      transform: scale(1.07);
+      box-shadow:
+        0 24px 72px rgba(124,58,237,.58),
+        0 0 95px rgba(168,85,247,.38),
+        inset 0 1px 0 rgba(255,255,255,.40);
+    }
+    .demo-video-play:active {
+      transform: scale(.98);
+    }
+    .demo-video-play svg {
+      width: 38px;
+      height: 38px;
+      fill: currentColor;
+      margin-left: 6px;
+      filter: drop-shadow(0 2px 8px rgba(0,0,0,.24));
+    }
+    .demo-video-shell.is-playing .demo-video-play {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      animation: none;
+    }
+    @keyframes demoPlayPulse {
+      0%,100% { transform: scale(1); }
+      50% { transform: scale(1.045); }
+    }
+    @keyframes demoPlayRing {
+      0% { transform: scale(.78); opacity: .85; }
+      80%,100% { transform: scale(1.36); opacity: 0; }
+    }
+    @media (max-width: 640px) {
+      .demo-video-play {
+        width: 92px;
+        height: 92px;
+      }
+      .demo-video-play svg {
+        width: 31px;
+        height: 31px;
+      }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .demo-video-play,
+      .demo-video-play::before {
+        animation: none !important;
+      }
+    }
+
+  
+    /* Compact tariff showcase — based on the supplied video, adapted to the purple glass theme */
+    #tariffs.compact-tariffs {
+      position: relative;
+      overflow: hidden;
+      padding-top: 64px;
+      padding-bottom: 96px;
+    }
+
+    #tariffs.compact-tariffs::before,
+    #tariffs.compact-tariffs::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      filter: blur(70px);
+      opacity: .55;
+    }
+
+    #tariffs.compact-tariffs::before {
+      width: 430px;
+      height: 430px;
+      left: 12%;
+      top: 18%;
+      background: rgba(124,58,237,.20);
+      animation: compactTariffGlowA 7s ease-in-out infinite alternate;
+    }
+
+    #tariffs.compact-tariffs::after {
+      width: 360px;
+      height: 360px;
+      right: 13%;
+      bottom: 7%;
+      background: rgba(168,85,247,.16);
+      animation: compactTariffGlowB 8s ease-in-out infinite alternate;
+    }
+
+    .tariff-showcase {
+      position: relative;
+      width: min(560px, 94vw);
+      margin: 44px auto 0;
+      padding: 31px 28px 28px;
+      border: 1px solid rgba(168,85,247,.38);
+      border-radius: 29px;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(139,92,246,.16), transparent 38%),
+        linear-gradient(145deg, rgba(255,255,255,.085), rgba(255,255,255,.025)),
+        rgba(18,18,27,.74);
+      box-shadow:
+        0 30px 80px rgba(0,0,0,.42),
+        0 0 72px rgba(124,58,237,.15),
+        inset 0 1px 0 rgba(255,255,255,.12);
+      -webkit-backdrop-filter: blur(24px) saturate(130%);
+      backdrop-filter: blur(24px) saturate(130%);
+      isolation: isolate;
+    }
+
+    .tariff-showcase::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: linear-gradient(110deg, transparent 29%, rgba(255,255,255,.07) 48%, transparent 68%);
+      transform: translateX(-115%);
+      animation: compactTariffShine 7s ease-in-out infinite;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .tariff-showcase__title {
+      margin: 0 0 25px;
+      text-align: center;
+      font-size: 25px;
+      font-weight: 900;
+      letter-spacing: -.025em;
+      color: #fff;
+    }
+
+    .tariff-showcase__plans {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 13px;
+      align-items: stretch;
+    }
+
+    .tariff-mini {
+      position: relative;
+      min-height: 178px;
+      padding: 26px 10px 16px;
+      border: 1px solid rgba(255,255,255,.11);
+      border-radius: 15px;
+      color: #fff;
+      text-align: center;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.065), rgba(255,255,255,.018)),
+        rgba(39,40,50,.58);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.055);
+      cursor: pointer;
+      transition:
+        transform .28s cubic-bezier(.2,.8,.2,1),
+        border-color .28s ease,
+        box-shadow .28s ease,
+        background .28s ease;
+    }
+
+    .tariff-mini:hover {
+      transform: translateY(-4px);
+      border-color: rgba(168,85,247,.34);
+      box-shadow:
+        0 13px 28px rgba(0,0,0,.23),
+        0 0 26px rgba(124,58,237,.12),
+        inset 0 1px 0 rgba(255,255,255,.09);
+    }
+
+    .tariff-mini.is-active {
+      transform: translateY(-4px);
+      border-color: rgba(168,85,247,.78);
+      background:
+        radial-gradient(circle at 50% 0%, rgba(168,85,247,.22), transparent 54%),
+        linear-gradient(180deg, rgba(139,92,246,.17), rgba(255,255,255,.028)),
+        rgba(36,31,53,.78);
+      box-shadow:
+        0 15px 34px rgba(42,16,82,.34),
+        0 0 33px rgba(139,92,246,.19),
+        inset 0 1px 0 rgba(255,255,255,.12);
+    }
+
+    .tariff-mini__badge {
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      min-width: 50px;
+      padding: 5px 11px;
+      border: 1px solid rgba(255,255,255,.20);
+      border-radius: 999px;
+      color: #fff;
+      background: linear-gradient(135deg, #a855f7, #7c3aed);
+      box-shadow: 0 8px 22px rgba(124,58,237,.33), inset 0 1px 0 rgba(255,255,255,.26);
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: .04em;
+    }
+
+    .tariff-mini__price {
+      display: block;
+      margin-top: 4px;
+      font-size: 31px;
+      line-height: 1;
+      font-weight: 950;
+      letter-spacing: -.045em;
+      color: #d9c7ff;
+      text-shadow: 0 0 22px rgba(168,85,247,.14);
+    }
+
+    .tariff-mini.is-active .tariff-mini__price {
+      color: #fff;
+      text-shadow: 0 0 28px rgba(168,85,247,.40);
+    }
+
+    .tariff-mini__old {
+      display: block;
+      margin-top: 17px;
+      color: rgba(255,255,255,.38);
+      font-size: 13px;
+      text-decoration: line-through;
+    }
+
+    .tariff-mini__name {
+      display: block;
+      margin-top: 11px;
+      color: rgba(255,255,255,.90);
+      font-size: 13px;
+      font-weight: 750;
+      line-height: 1.35;
+    }
+
+    .tariff-showcase__view {
+      display: flex;
+      justify-content: center;
+      margin-top: 26px;
+    }
+
+    .tariff-showcase__view .btn {
+      min-width: 245px;
+      min-height: 52px;
+      border-radius: 999px;
+      box-shadow:
+        0 15px 34px rgba(124,58,237,.30),
+        inset 0 1px 0 rgba(255,255,255,.23);
+    }
+
+    .tariff-benefits {
+      width: min(380px, 100%);
+      margin: 27px auto 0;
+      display: grid;
+      gap: 15px;
+      padding: 0;
+      list-style: none;
+    }
+
+    .tariff-benefits li {
+      position: relative;
+      padding-left: 29px;
+      color: rgba(255,255,255,.84);
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    .tariff-benefits li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      top: -1px;
+      width: 20px;
+      height: 20px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(168,85,247,.24);
+      border-radius: 50%;
+      color: #d8c8ff;
+      background: rgba(139,92,246,.10);
+      font-size: 12px;
+      font-weight: 900;
+      box-shadow: 0 0 16px rgba(124,58,237,.10);
+    }
+
+    .tariff-showcase__buy {
+      position: relative;
+      left: auto;
+      bottom: auto;
+      transform: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: max-content;
+      margin: 24px auto 0;
+      min-width: 210px;
+      min-height: 54px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      padding: 0 23px;
+      border: 1px solid rgba(255,255,255,.20);
+      border-radius: 999px;
+      color: #fff;
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 900;
+      background:
+        linear-gradient(145deg, rgba(255,255,255,.15), rgba(255,255,255,.025)),
+        linear-gradient(90deg, #8b5cf6, #7c3aed 52%, #a855f7);
+      box-shadow:
+        0 17px 42px rgba(124,58,237,.40),
+        0 0 47px rgba(168,85,247,.17),
+        inset 0 1px 0 rgba(255,255,255,.27);
+      transition: transform .28s cubic-bezier(.2,.8,.2,1), box-shadow .28s ease;
+      white-space: nowrap;
+    }
+
+    .tariff-showcase__buy:hover {
+      transform: translateY(-3px) scale(1.025);
+      box-shadow:
+        0 21px 52px rgba(124,58,237,.48),
+        0 0 62px rgba(168,85,247,.25),
+        inset 0 1px 0 rgba(255,255,255,.32);
+    }
+
+    @keyframes compactTariffGlowA {
+      from { transform: translate3d(-18px,-10px,0) scale(.93); opacity:.35; }
+      to   { transform: translate3d(42px,22px,0) scale(1.08); opacity:.70; }
+    }
+
+    @keyframes compactTariffGlowB {
+      from { transform: translate3d(24px,18px,0) scale(.92); opacity:.28; }
+      to   { transform: translate3d(-38px,-18px,0) scale(1.10); opacity:.64; }
+    }
+
+    @keyframes compactTariffShine {
+      0%, 27% { transform: translateX(-115%); opacity:0; }
+      39% { opacity:1; }
+      56% { transform: translateX(115%); opacity:0; }
+      100% { transform: translateX(115%); opacity:0; }
+    }
+
+    @media (max-width: 620px) {
+      #tariffs.compact-tariffs {
+        padding-top: 52px;
+        padding-bottom: 82px;
+      }
+      .tariff-showcase {
+        width: min(410px, 94vw);
+        margin-top: 31px;
+        padding: 27px 18px 48px;
+        border-radius: 25px;
+      }
+      .tariff-showcase__title { font-size: 22px; }
+      .tariff-showcase__plans { gap: 8px; }
+      .tariff-mini {
+        min-height: 159px;
+        padding: 24px 6px 13px;
+        border-radius: 13px;
+      }
+      .tariff-mini__price { font-size: 24px; }
+      .tariff-mini__old { margin-top: 14px; font-size: 11px; }
+      .tariff-mini__name { margin-top: 9px; font-size: 11px; }
+      .tariff-mini__badge { top: -10px; padding: 4px 8px; font-size: 9px; }
+      .tariff-benefits { gap: 12px; }
+      .tariff-benefits li { font-size: 13px; }
+      .tariff-showcase__view .btn { min-width: 220px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      #tariffs.compact-tariffs::before,
+      #tariffs.compact-tariffs::after,
+      .tariff-showcase::before {
+        animation: none !important;
+      }
+    }
+
+  </style>
+</head>
+<body><div class="fx-stage" aria-hidden="true" style="transform: translate3d(0px, 38px, 0px);">
+    <div class="fx-orb fx-orb--1"></div>
+    <div class="fx-orb fx-orb--2"></div>
+    <div class="fx-orb fx-orb--3"></div>
+    <div class="fx-mesh"></div>
+    <div class="fx-grain"></div></div><div class="fx-stage" aria-hidden="true" style="transform: translate3d(0px, 0px, 0px);">
+    <div class="fx-orb fx-orb--1"></div>
+    <div class="fx-orb fx-orb--2"></div>
+    <div class="fx-orb fx-orb--3"></div>
+    <div class="fx-mesh"></div>
+    <div class="fx-grain"></div></div><div class="fx-stage" aria-hidden="true" style="transform: translate3d(0px, 38px, 0px);">
+    <div class="fx-orb fx-orb--1"></div>
+    <div class="fx-orb fx-orb--2"></div>
+    <div class="fx-orb fx-orb--3"></div>
+    <div class="fx-mesh"></div>
+    <div class="fx-grain"></div></div><div class="fx-stage" aria-hidden="true" style="transform: translate3d(0px, 38px, 0px);">
+    <div class="fx-orb fx-orb--1"></div>
+    <div class="fx-orb fx-orb--2"></div>
+    <div class="fx-orb fx-orb--3"></div>
+    <div class="fx-mesh"></div>
+    <div class="fx-grain"></div></div><div class="fx-stage" aria-hidden="true" style="transform: translate3d(0px, 38px, 0px);">
+    <div class="fx-orb fx-orb--1"></div>
+    <div class="fx-orb fx-orb--2"></div>
+    <div class="fx-orb fx-orb--3"></div>
+    <div class="fx-mesh"></div>
+    <div class="fx-grain"></div></div><div class="fx-stage" aria-hidden="true" style="transform: translate3d(0px, 0px, 0px);">
+    <div class="fx-orb fx-orb--1"></div>
+    <div class="fx-orb fx-orb--2"></div>
+    <div class="fx-orb fx-orb--3"></div>
+    <div class="fx-mesh"></div>
+    <div class="fx-grain"></div></div>
+<header class="header is-scrolled">
+  <div class="container header__inner">
+    <a class="brand" href="index.html">Scum-Link.ru <small>BETA</small></a>
+    <nav class="nav" aria-label="Основная навигация"><a href="index.html">Все игры</a>
+      <a href="#reviews">Отзывы</a><a href="#how">Как работает</a><a href="#tariffs">Тарифы</a><a href="#advantages">Преимущества</a>
+      <button data-open-key="">Ввести ключ</button><a href="https://t.me/LinkScumMod_Standoff2">TG канал</a>
+    </nav>
+    <button class="menu-btn" id="menuBtn" aria-label="Открыть меню" aria-expanded="false">☰</button>
+  </div>
+</header>
+<div class="mobile-nav" id="mobileNav"><a href="index.html">Все игры</a>
+  <a href="#reviews">Отзывы</a><a href="#how">Как работает</a><a href="#tariffs">Тарифы</a><a href="#advantages">Преимущества</a>
+  <button data-open-key="">Ввести ключ</button><a href="#contacts">TG канал</a>
+</div>
+<main>
+  <section class="hero">
+    <div class="container hero__content" style="--hero-x: 0px; --hero-y: 0px;"><div class="spark-field" aria-hidden="true"><i class="spark" style="left: 6.14848%; top: 87.5583%; --spark-size: 3.1542408404653575px; --spark-speed: 8.66560681391828s; --spark-delay: -9.842419825955552s; --spark-drift: 36.007248462781305px;"></i><i class="spark" style="left: 78.6962%; top: 35.3503%; --spark-size: 2.852256833700644px; --spark-speed: 10.979771843354234s; --spark-delay: -1.119862089833028s; --spark-drift: -17.874935087719297px;"></i><i class="spark" style="left: 57.8508%; top: 75.7702%; --spark-size: 1.7561021016783205px; --spark-speed: 6.780526310676494s; --spark-delay: -8.683815516988032s; --spark-drift: -42.42031318656201px;"></i><i class="spark" style="left: 58.2726%; top: 39.0863%; --spark-size: 2.7762743015828795px; --spark-speed: 8.212417686519698s; --spark-delay: -6.600839088071774s; --spark-drift: 31.447098820582312px;"></i><i class="spark" style="left: 81.2748%; top: 18.6097%; --spark-size: 1.7948430272784148px; --spark-speed: 9.17822035944608s; --spark-delay: -4.832375228888769s; --spark-drift: 36.69057872616089px;"></i><i class="spark" style="left: 58.1418%; top: 18.9112%; --spark-size: 2.978853135714516px; --spark-speed: 6.5098768695432865s; --spark-delay: -6.9999948994230365s; --spark-drift: -11.246710474969838px;"></i><i class="spark" style="left: 14.3297%; top: 47.068%; --spark-size: 2.3667834522661964px; --spark-speed: 13.356064054593979s; --spark-delay: -0.23439262232371139s; --spark-drift: 33.346912795255506px;"></i><i class="spark" style="left: 55.8996%; top: 39.2388%; --spark-size: 3.9771807770181633px; --spark-speed: 6.795799792052533s; --spark-delay: -6.91716161348067s; --spark-drift: 28.393103034680777px;"></i><i class="spark" style="left: 41.9718%; top: 65.2602%; --spark-size: 3.7445812192005867px; --spark-speed: 12.09724215640583s; --spark-delay: -7.061987988613279s; --spark-drift: -14.846166366139752px;"></i><i class="spark" style="left: 92.0823%; top: 67.3829%; --spark-size: 3.0858705277203975px; --spark-speed: 13.112736287303415s; --spark-delay: -7.104865151595988s; --spark-drift: 44.25416954436565px;"></i><i class="spark" style="left: 51.8741%; top: 93.4563%; --spark-size: 3.5594859743928247px; --spark-speed: 12.723676992750185s; --spark-delay: -9.127024232491202s; --spark-drift: 40.333014639098465px;"></i><i class="spark" style="left: 86.4154%; top: 48.6724%; --spark-size: 2.407983295363324px; --spark-speed: 7.686991111149491s; --spark-delay: -1.7836206726003023s; --spark-drift: -1.56308385008618px;"></i><i class="spark" style="left: 7.38905%; top: 62.5066%; --spark-size: 1.590901186051013px; --spark-speed: 8.492387074824684s; --spark-delay: -0.7541433868222414s; --spark-drift: 27.29871384395709px;"></i><i class="spark" style="left: 37.1228%; top: 35.7028%; --spark-size: 3.7416489737862877px; --spark-speed: 12.093075898785983s; --spark-delay: -7.101236161369869s; --spark-drift: -30.767844751789184px;"></i><i class="spark" style="left: 9.53914%; top: 88.8654%; --spark-size: 2.8662478539901626px; --spark-speed: 12.621633467990716s; --spark-delay: -2.5485137389664647s; --spark-drift: 21.595112019619975px;"></i><i class="spark" style="left: 73.3077%; top: 32.8016%; --spark-size: 3.4665387117122988px; --spark-speed: 6.706529176992283s; --spark-delay: -2.2872144494719637s; --spark-drift: 20.205637579673905px;"></i><i class="spark" style="left: 85.1179%; top: 44.1116%; --spark-size: 2.4149823477981327px; --spark-speed: 9.392131518537063s; --spark-delay: -7.81474389175976s; --spark-drift: -8.221049608900685px;"></i><i class="spark" style="left: 22.1072%; top: 29.441%; --spark-size: 3.0395833877735416px; --spark-speed: 9.171574927580938s; --spark-delay: -8.751163371601848s; --spark-drift: -33.50279019468187px;"></i></div><div class="spark-field" aria-hidden="true"><i class="spark" style="left: 48.6034%; top: 57.0894%; --spark-size: 3.7855708273974034px; --spark-speed: 10.468239083857231s; --spark-delay: -6.789270681681273s; --spark-drift: 21.331556494944877px;"></i><i class="spark" style="left: 6.49724%; top: 23.9646%; --spark-size: 1.9377763362265106px; --spark-speed: 11.045895073005713s; --spark-delay: -3.3987917042261317s; --spark-drift: 14.391080114742266px;"></i><i class="spark" style="left: 44.6213%; top: 68.3407%; --spark-size: 1.579202440417237px; --spark-speed: 8.615322837938841s; --spark-delay: -4.5192324721327175s; --spark-drift: -20.84085076836901px;"></i><i class="spark" style="left: 75.6439%; top: 47.1171%; --spark-size: 2.126044637796034px; --spark-speed: 7.269209541005719s; --spark-delay: -6.670098925748784s; --spark-drift: -29.350091056819736px;"></i><i class="spark" style="left: 8.99827%; top: 67.2392%; --spark-size: 3.700962341201982px; --spark-speed: 8.151372145895886s; --spark-delay: -2.343279322813696s; --spark-drift: 40.05722623948883px;"></i><i class="spark" style="left: 77.8561%; top: 87.8173%; --spark-size: 3.8826606489907394px; --spark-speed: 6.716158416351858s; --spark-delay: -5.425132020613679s; --spark-drift: 28.563331516553504px;"></i><i class="spark" style="left: 31.9364%; top: 86.7843%; --spark-size: 2.788997985746183px; --spark-speed: 7.8727259678870265s; --spark-delay: -1.519789696111663s; --spark-drift: -41.17596243016103px;"></i><i class="spark" style="left: 85.1188%; top: 95.532%; --spark-size: 2.4566644695738638px; --spark-speed: 8.805029530920239s; --spark-delay: -7.513667863818931s; --spark-drift: -21.631033346520738px;"></i><i class="spark" style="left: 55.503%; top: 85.3923%; --spark-size: 3.4444267060164933px; --spark-speed: 13.132132479343127s; --spark-delay: -5.319127724032837s; --spark-drift: 33.002951464279406px;"></i><i class="spark" style="left: 60.127%; top: 73.248%; --spark-size: 3.603804651618389px; --spark-speed: 13.284254095405188s; --spark-delay: -1.1318736241073812s; --spark-drift: -35.76019202110641px;"></i><i class="spark" style="left: 31.4527%; top: 69.6122%; --spark-size: 3.1838644960237827px; --spark-speed: 8.856903554833572s; --spark-delay: -2.7149698078801543s; --spark-drift: -10.381628231392298px;"></i><i class="spark" style="left: 83.1547%; top: 64.998%; --spark-size: 2.517712603831104px; --spark-speed: 8.560590700599711s; --spark-delay: -5.82824670435091s; --spark-drift: 15.583228175861095px;"></i><i class="spark" style="left: 74.1046%; top: 36.1105%; --spark-size: 2.279811892720078px; --spark-speed: 8.431959803674907s; --spark-delay: -4.455276339421691s; --spark-drift: 5.621499507268673px;"></i><i class="spark" style="left: 22.3323%; top: 38.8194%; --spark-size: 2.67031315734289px; --spark-speed: 7.800143477708079s; --spark-delay: -0.1595751493170372s; --spark-drift: -1.7981077931060412px;"></i><i class="spark" style="left: 14.2014%; top: 47.8767%; --spark-size: 2.1983972243259724px; --spark-speed: 7.458067441698196s; --spark-delay: -1.323842704552891s; --spark-drift: 23.99235594771511px;"></i><i class="spark" style="left: 39.7344%; top: 34.6043%; --spark-size: 1.9563300123185845px; --spark-speed: 13.182136125666064s; --spark-delay: -2.122227001922734s; --spark-drift: -36.65041372120049px;"></i><i class="spark" style="left: 80.9464%; top: 64.1048%; --spark-size: 1.763245996788898px; --spark-speed: 8.827991392392928s; --spark-delay: -2.1321914847788026s; --spark-drift: 37.057941206111835px;"></i><i class="spark" style="left: 88.0006%; top: 45.6427%; --spark-size: 3.878176725721719px; --spark-speed: 12.627802973429354s; --spark-delay: -7.512651152698346s; --spark-drift: 33.11373610907158px;"></i></div><div class="spark-field" aria-hidden="true"><i class="spark" style="left: 94.1887%; top: 79.7376%; --spark-size: 1.99096871575072px; --spark-speed: 12.000449983691293s; --spark-delay: -9.780614260757924s; --spark-drift: 32.66051039761784px;"></i><i class="spark" style="left: 30.7533%; top: 38.6795%; --spark-size: 1.7921765531756169px; --spark-speed: 8.510399954106276s; --spark-delay: -7.794024230212015s; --spark-drift: -4.436631316337191px;"></i><i class="spark" style="left: 51.572%; top: 25.8849%; --spark-size: 2.996117823976964px; --spark-speed: 13.108545640450554s; --spark-delay: -9.653571963864739s; --spark-drift: -33.551620643750695px;"></i><i class="spark" style="left: 76.2667%; top: 34.2872%; --spark-size: 2.9763136277201085px; --spark-speed: 9.068185276893287s; --spark-delay: -1.5891752231110867s; --spark-drift: 11.414153241163376px;"></i><i class="spark" style="left: 20.579%; top: 65.5908%; --spark-size: 2.6686890838802038px; --spark-speed: 6.798783191104309s; --spark-delay: -4.936053781815501s; --spark-drift: 30.29117043430361px;"></i><i class="spark" style="left: 60.3799%; top: 22.7136%; --spark-size: 1.688324365540151px; --spark-speed: 12.013797375749265s; --spark-delay: -4.201055221733543s; --spark-drift: -33.770824277527446px;"></i><i class="spark" style="left: 19.4444%; top: 22.7308%; --spark-size: 3.7742898233023716px; --spark-speed: 11.752941309266898s; --spark-delay: -5.225006661056563s; --spark-drift: -39.240117723783065px;"></i><i class="spark" style="left: 29.2901%; top: 38.1619%; --spark-size: 2.7146420033732985px; --spark-speed: 9.113672292175796s; --spark-delay: -1.3692944706372079s; --spark-drift: 7.02797887943624px;"></i><i class="spark" style="left: 9.37429%; top: 43.7243%; --spark-size: 1.8383077610399172px; --spark-speed: 6.8056362781962365s; --spark-delay: -3.8524309500949183s; --spark-drift: -24.876291105388294px;"></i><i class="spark" style="left: 7.66991%; top: 28.0604%; --spark-size: 2.6367008693023104px; --spark-speed: 8.775403803908867s; --spark-delay: -1.7830219481924836s; --spark-drift: -13.267472429963043px;"></i></div><div class="spark-field" aria-hidden="true"><i class="spark" style="left: 49.1536%; top: 47.1239%; --spark-size: 3.884404346186821px; --spark-speed: 11.3516772674134s; --spark-delay: -8.859950832392926s; --spark-drift: 3.0961796246462328px;"></i><i class="spark" style="left: 23.4277%; top: 39.6685%; --spark-size: 3.7050356177688055px; --spark-speed: 7.055250915170406s; --spark-delay: -3.9641816300142283s; --spark-drift: 28.34491528389131px;"></i><i class="spark" style="left: 92.216%; top: 71.7078%; --spark-size: 2.546924287944479px; --spark-speed: 12.643889846981814s; --spark-delay: -4.681912740244719s; --spark-drift: 12.69054863190204px;"></i><i class="spark" style="left: 14.5628%; top: 82.6966%; --spark-size: 3.0824329784733755px; --spark-speed: 12.819445498297352s; --spark-delay: -3.0935083726487256s; --spark-drift: 27.192675011079757px;"></i><i class="spark" style="left: 63.5873%; top: 88.5489%; --spark-size: 3.93328037035079px; --spark-speed: 6.655138097836962s; --spark-delay: -1.1708792307680904s; --spark-drift: -15.976768993923844px;"></i><i class="spark" style="left: 85.2501%; top: 85.1958%; --spark-size: 3.9173273194991887px; --spark-speed: 7.69797571884868s; --spark-delay: -7.205396940425462s; --spark-drift: 27.607970768354747px;"></i><i class="spark" style="left: 10.7587%; top: 86.2005%; --spark-size: 2.780263398430784px; --spark-speed: 7.802687749618552s; --spark-delay: -3.0267711430311794s; --spark-drift: -10.35703823273682px;"></i><i class="spark" style="left: 65.6489%; top: 45.2097%; --spark-size: 2.5413569497724335px; --spark-speed: 7.8294012608883055s; --spark-delay: -9.011169692281566s; --spark-drift: 18.290373689807907px;"></i><i class="spark" style="left: 78.4503%; top: 93.3128%; --spark-size: 1.552219996641698px; --spark-speed: 10.65943815741156s; --spark-delay: -7.7860358987913525s; --spark-drift: -20.774497927050785px;"></i><i class="spark" style="left: 76.7631%; top: 89.994%; --spark-size: 1.689701379036179px; --spark-speed: 10.705629535263562s; --spark-delay: -5.397417665001817s; --spark-drift: 41.143086817296805px;"></i><i class="spark" style="left: 39.8794%; top: 20.7203%; --spark-size: 2.360283841413493px; --spark-speed: 9.093221342509693s; --spark-delay: -7.164777685162789s; --spark-drift: 7.2454775479762645px;"></i><i class="spark" style="left: 67.2781%; top: 59.7141%; --spark-size: 3.596709472743115px; --spark-speed: 6.578510309207184s; --spark-delay: -7.157795599952909s; --spark-drift: 2.2001927397354564px;"></i><i class="spark" style="left: 46.4394%; top: 21.6491%; --spark-size: 3.017956704575205px; --spark-speed: 10.304297184866176s; --spark-delay: -4.545358936106442s; --spark-drift: -22.63707256352526px;"></i><i class="spark" style="left: 37.4232%; top: 35.6354%; --spark-size: 2.518402093622169px; --spark-speed: 8.07654987490757s; --spark-delay: -9.518541580717931s; --spark-drift: 8.68202735451996px;"></i><i class="spark" style="left: 20.7383%; top: 33.2816%; --spark-size: 3.927963796756381px; --spark-speed: 11.682305124292224s; --spark-delay: -3.8092668399618956s; --spark-drift: -37.74938708666443px;"></i><i class="spark" style="left: 34.8439%; top: 83.591%; --spark-size: 2.0375513058395542px; --spark-speed: 6.693788489595372s; --spark-delay: -6.883258887366667s; --spark-drift: 20.254205411946657px;"></i><i class="spark" style="left: 35.8815%; top: 49.8233%; --spark-size: 1.5601967345525247px; --spark-speed: 11.967404288845742s; --spark-delay: -0.35310257933920397s; --spark-drift: 9.50111788559483px;"></i><i class="spark" style="left: 36.8012%; top: 29.9057%; --spark-size: 1.5266825795071863px; --spark-speed: 6.540124161744421s; --spark-delay: -1.2704164409136331s; --spark-drift: 15.867440224466932px;"></i></div><div class="spark-field" aria-hidden="true"><i class="spark" style="left: 7.7148%; top: 51.0546%; --spark-size: 2.184025245250143px; --spark-speed: 10.28938866650131s; --spark-delay: -5.474399054678418s; --spark-drift: 17.158815748159036px;"></i><i class="spark" style="left: 94.2681%; top: 84.321%; --spark-size: 3.482458684238227px; --spark-speed: 7.670357768893505s; --spark-delay: -9.479858641639446s; --spark-drift: 36.99763526016845px;"></i><i class="spark" style="left: 28.9857%; top: 88.3165%; --spark-size: 3.648006634983699px; --spark-speed: 9.843172701315664s; --spark-delay: -3.302289000742947s; --spark-drift: 17.49851247842269px;"></i><i class="spark" style="left: 12.8149%; top: 53.8658%; --spark-size: 3.407360590533306px; --spark-speed: 10.88454415990796s; --spark-delay: -4.889600291611982s; --spark-drift: -6.177573249168013px;"></i><i class="spark" style="left: 91.131%; top: 93.522%; --spark-size: 2.980126903316518px; --spark-speed: 9.54464207517153s; --spark-delay: -5.960143674983261s; --spark-drift: 32.59884937099443px;"></i><i class="spark" style="left: 19.1725%; top: 37.3478%; --spark-size: 2.800966174424354px; --spark-speed: 9.535693980131086s; --spark-delay: -9.351395243577059s; --spark-drift: 30.600124941398988px;"></i><i class="spark" style="left: 78.3182%; top: 44.4895%; --spark-size: 2.571021516167825px; --spark-speed: 11.847107201471594s; --spark-delay: -7.141955931744962s; --spark-drift: -19.70784954863499px;"></i><i class="spark" style="left: 17.4075%; top: 29.0071%; --spark-size: 2.165263525640986px; --spark-speed: 9.208124515265101s; --spark-delay: -0.9385935936009049s; --spark-drift: 28.677748228051072px;"></i><i class="spark" style="left: 14.4856%; top: 71.2895%; --spark-size: 2.3310244620927008px; --spark-speed: 6.630712202501252s; --spark-delay: -3.1273448370144052s; --spark-drift: -22.72987570454353px;"></i><i class="spark" style="left: 89.7912%; top: 69.6981%; --spark-size: 3.356904600742682px; --spark-speed: 10.348768682675747s; --spark-delay: -7.25616425705912s; --spark-drift: 34.39677457006445px;"></i><i class="spark" style="left: 42.6957%; top: 79.9132%; --spark-size: 2.4644755955918045px; --spark-speed: 9.431803726825937s; --spark-delay: -1.1269018182979984s; --spark-drift: -0.9092995987846422px;"></i><i class="spark" style="left: 63.1362%; top: 41.2839%; --spark-size: 3.143516472500189px; --spark-speed: 8.013690098171402s; --spark-delay: -0.12091975887666528s; --spark-drift: -38.76599310268321px;"></i><i class="spark" style="left: 21.574%; top: 70.7321%; --spark-size: 1.5003028225115824px; --spark-speed: 13.151769068247127s; --spark-delay: -8.503007473288644s; --spark-drift: -0.09216778501667022px;"></i><i class="spark" style="left: 94.5879%; top: 30.7999%; --spark-size: 3.5808711853499116px; --spark-speed: 13.079561751902144s; --spark-delay: -1.6070688077121908s; --spark-drift: -39.75751406433017px;"></i><i class="spark" style="left: 94.0568%; top: 20.896%; --spark-size: 3.557570172980568px; --spark-speed: 12.413897697985092s; --spark-delay: -7.38875888380271s; --spark-drift: 11.246809265431061px;"></i><i class="spark" style="left: 22.8091%; top: 34.0795%; --spark-size: 3.552869932380877px; --spark-speed: 9.095031946060134s; --spark-delay: -0.945092114372823s; --spark-drift: 32.3742214621231px;"></i><i class="spark" style="left: 49.2662%; top: 58.3656%; --spark-size: 1.8590169298929036px; --spark-speed: 6.6981377164249905s; --spark-delay: -0.3498478697966889s; --spark-drift: -21.192792215962246px;"></i><i class="spark" style="left: 62.914%; top: 25.8635%; --spark-size: 3.647090483487892px; --spark-speed: 11.872966751000662s; --spark-delay: -2.7716452797521205s; --spark-drift: 5.365212945534331px;"></i></div><div class="spark-field" aria-hidden="true"><i class="spark" style="left: 41.4488%; top: 43.8693%; --spark-size: 2.354213517606471px; --spark-speed: 9.226625004185433s; --spark-delay: -1.1372723587752886s; --spark-drift: -15.622265592383421px;"></i><i class="spark" style="left: 75.7766%; top: 35.358%; --spark-size: 2.5449352466838056px; --spark-speed: 8.79076110652375s; --spark-delay: -0.12006644037083514s; --spark-drift: -4.868369510787723px;"></i><i class="spark" style="left: 45.5722%; top: 81.3908%; --spark-size: 2.4337044927964797px; --spark-speed: 11.868908140828763s; --spark-delay: -0.3660819381214264s; --spark-drift: -42.671286382850546px;"></i><i class="spark" style="left: 24.3048%; top: 45.141%; --spark-size: 1.6583428567625913px; --spark-speed: 10.161676112722969s; --spark-delay: -9.842448324008098s; --spark-drift: -28.80267275709947px;"></i><i class="spark" style="left: 38.1549%; top: 64.5982%; --spark-size: 3.4495305717767595px; --spark-speed: 7.277417037406715s; --spark-delay: -9.783628015247718s; --spark-drift: 10.933391578073476px;"></i><i class="spark" style="left: 59.3184%; top: 23.6769%; --spark-size: 2.6130248301725048px; --spark-speed: 12.309778146123453s; --spark-delay: -0.9967459371450405s; --spark-drift: -0.6024603092998504px;"></i><i class="spark" style="left: 32.0312%; top: 51.9522%; --spark-size: 2.978545969167163px; --spark-speed: 8.288142103546996s; --spark-delay: -6.528555157288359s; --spark-drift: 34.49662635650412px;"></i><i class="spark" style="left: 21.333%; top: 70.9029%; --spark-size: 1.9447179848761103px; --spark-speed: 13.118648064555394s; --spark-delay: -8.45553616022976s; --spark-drift: 3.2565256375615235px;"></i><i class="spark" style="left: 48.916%; top: 78.1207%; --spark-size: 3.4715356020505572px; --spark-speed: 8.199923905406573s; --spark-delay: -2.245891555083902s; --spark-drift: 14.692449432492552px;"></i><i class="spark" style="left: 37.9442%; top: 37.6467%; --spark-size: 3.2191701483302357px; --spark-speed: 9.19980827873935s; --spark-delay: -9.140361908862198s; --spark-drift: -3.256441001502324px;"></i><i class="spark" style="left: 27.0085%; top: 62.9283%; --spark-size: 1.6444840953157767px; --spark-speed: 7.650021766892708s; --spark-delay: -2.9122580246454897s; --spark-drift: 16.082811671281895px;"></i><i class="spark" style="left: 19.0677%; top: 30.199%; --spark-size: 2.0507956011462434px; --spark-speed: 8.781491373417746s; --spark-delay: -7.27716966448603s; --spark-drift: 7.0132342172255875px;"></i><i class="spark" style="left: 68.788%; top: 88.4429%; --spark-size: 2.449532261913853px; --spark-speed: 7.962721949930869s; --spark-delay: -4.647779168946682s; --spark-drift: -32.26411472153431px;"></i><i class="spark" style="left: 43.2137%; top: 82.8092%; --spark-size: 2.813926026703617px; --spark-speed: 9.973329100066955s; --spark-delay: -8.268089106759165s; --spark-drift: 9.222551138387495px;"></i><i class="spark" style="left: 94.4824%; top: 44.3571%; --spark-size: 3.098631965629009px; --spark-speed: 8.731202585338544s; --spark-delay: -4.397463144295078s; --spark-drift: -32.23521759977223px;"></i><i class="spark" style="left: 24.771%; top: 22.8736%; --spark-size: 3.7482930272518677px; --spark-speed: 7.076152804693288s; --spark-delay: -6.003787995412496s; --spark-drift: 21.19384772300296px;"></i><i class="spark" style="left: 65.1027%; top: 74.0259%; --spark-size: 3.6351759843842584px; --spark-speed: 10.662984856677658s; --spark-delay: -9.776396437204188s; --spark-drift: -1.364609437881974px;"></i><i class="spark" style="left: 71.5554%; top: 62.6914%; --spark-size: 2.3646189223785px; --spark-speed: 7.572933509640633s; --spark-delay: -7.489219168731312s; --spark-drift: 0.43627557478123435px;"></i></div>
+      <h1 class="wordmark"><span class="blue">LI</span>NK<span class="orange">SCUM</span></h1>
+      <p>Данный софт на Standoff 2 позволяет зайти на любой аккаунт просто если человек нажмет на вашу скам ссылку. Осуществляется это посредством получения токена от аккаунта
+</p>
+      
+      <div class="notice"><strong>Важно:</strong> Наш софт работает на всех устройствах и не требует root-прав или джейлбрейка!</div>
+      <div class="actions">
+        <a class="btn btn--hot" href="payment.html" style="--mag-x: 0px; --mag-y: 0px;">Купить скам ссылку</a>
+        <button class="btn btn--gold" data-open-key="" style="--mag-x: 0px; --mag-y: 0px;">🔑 Ввести ключ</button>
+      </div>
+      <div class="version">⑂ ВЕРСИЯ LinkScum —  Самая последняя (Можно скамить)</div>
+    </div>
+  </section>
+
+
+  <section class="reviews-strip" aria-label="Отзывы">
+    <a class="reviews-strip__link" href="https://t.me/otzuvudimargx" target="_blank" rel="noopener noreferrer" aria-label="Открыть отзывы в Telegram">
+      <span class="reviews-strip__telegram" aria-hidden="true">
+        <svg viewBox="0 0 24 24" role="img" aria-hidden="true">
+          <path d="M21.7 3.3 18.4 19c-.2 1.1-.9 1.4-1.8.9l-5-3.7-2.4 2.3c-.3.3-.5.5-1 .5l.4-5.1 9.3-8.4c.4-.4-.1-.6-.6-.2L5.8 12.5.9 11c-1.1-.3-1.1-1.1.2-1.6L20.2 2c.9-.3 1.7.2 1.5 1.3Z"></path>
+        </svg>
+      </span>
+      <span class="reviews-strip__star" aria-hidden="true">★</span>
+      <span class="reviews-strip__label">ОТЗЫВЫ</span>
+      <span class="reviews-strip__badge">1000+</span>
+    </a>
+  </section>
+
+  <section class="section section--alt" id="demo">
+    <div class="container">
+      <h2 class="section-title reveal reveal-left reveal-delay-1 is-visible">Посмотрите как работает интерфейс</h2>
+      <div class="demo-video-shell reveal reveal-pop reveal-delay-2 is-visible">
+        <video class="demo-video" controls="" preload="metadata" playsinline="" poster="assets/img/interface-demo-poster.jpg">
+          <source src="assets/video/interface-demo.mp4" type="video/mp4">
+          Ваш браузер не поддерживает воспроизведение MP4.
+        </video>
+        <button class="demo-video-play" type="button" aria-label="Воспроизвести видео">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M8 5.14v13.72c0 .78.86 1.26 1.53.85l10.77-6.86a1 1 0 0 0 0-1.7L9.53 4.29A1 1 0 0 0 8 5.14Z"></path>
+          </svg>
+        </button>
+      </div>
+      <p class="demo-caption">
+        <span class="demo-video-hint">▶ Видео-демонстрация показывает процесс создания скам-ссылки и получения доступа к аккаунту в игре</span>
+      </p>
+    </div>
+  </section>
+
+  <section class="section" id="how">
+    <div class="container">
+      <h2 class="section-title reveal reveal-pop reveal-delay-2 is-visible">Как это работает?</h2>
+      <div class="steps">
+        <div class="step reveal reveal-pop reveal-delay-2 is-visible reveal-left reveal-delay-1"><div class="step__num">1</div><div class="step__card glass-reactive" style="--spot-x: 50%; --spot-y: 20%;"><h3>Покупка доступа</h3><p>Приобретите подписку на наш сервис и получите личный ключ активации, после этого введите его на сайте.</p><div class="mock"><img src="assets/img/step1.png" alt="Демо экрана тарифов"></div></div></div>
+        <div class="step reveal reveal-right reveal-delay-3 is-visible reveal-pop reveal-delay-2"><div class="step__num">2</div>
+<div class="step__card glass-reactive" style="--spot-x: 50%; --spot-y: 20%;"><h3>Создание ссылки</h3><p>После активации ключа вы можете создать скам ссылку, которая внешне будет выглядеть как обыяная тг-ссылка.</p><div class="mock"><img src="assets/img/step2.png" alt="Демо экрана тарифов"></div></div></div>
+        <div class="step reveal reveal-pop reveal-delay-4 is-visible reveal-right reveal-delay-3"><div class="step__num">3</div>
+<div class="step__card glass-reactive" style="--spot-x: 50%; --spot-y: 20%;"><h3>Получение токена</h3><p>Когда цель переходит по ссылке, наш софт автоматически крадет токен от аккаунта жертвы.</p><div class="mock"><img src="assets/img/step3.png" alt="Демо экрана тарифов"></div></div></div>
+        <div class="step reveal reveal-left reveal-delay-1 is-visible reveal-pop reveal-delay-4"><div class="step__num">4</div>
+<div class="step__card glass-reactive" style="--spot-x: 50%; --spot-y: 20%;"><h3>Ввод токена, вход на аккаунт</h3><p>Токен нужно ввести в Токен-вход версию игры, тогда можно будет войти в аккаунт без почты и пароля!</p><div class="mock"><img src="assets/img/brw5.jpg" alt="Демо экрана тарифов"></div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt compact-tariffs" id="tariffs">
+    <div class="container">
+      <h2 class="section-title reveal reveal-right reveal-delay-3 is-visible">Тарифные планы</h2>
+
+      <div class="tariff-showcase reveal reveal-pop reveal-delay-2 is-visible">
+        <h3 class="tariff-showcase__title">Тарифы на выбор</h3>
+
+        <div class="tariff-showcase__plans" aria-label="Выбор тарифа">
+          <button class="tariff-mini" type="button" data-tariff-choice="week" aria-pressed="false">
+            <span class="tariff-mini__price">1198₽</span>
+            <span class="tariff-mini__old">2980G</span>
+            <span class="tariff-mini__name">Неделя</span>
+          </button>
+
+          <button class="tariff-mini is-active" type="button" data-tariff-choice="extra" data-open-payment-method="" data-tariff="extra" aria-pressed="true">
+            <span class="tariff-mini__badge">ХИТ</span>
+            <span class="tariff-mini__price">1500₽</span>
+            <span class="tariff-mini__old">3980G</span>
+            <span class="tariff-mini__name">EXTRA<br>(Навсегда)</span>
+          </button>
+
+          <button class="tariff-mini" type="button" data-tariff-choice="days3" aria-pressed="false">
+            <span class="tariff-mini__price">998₽</span>
+            <span class="tariff-mini__old">1998G</span>
+            <span class="tariff-mini__name">3 дня</span>
+          </button>
+        </div>
+
+        <div class="tariff-showcase__view">
+          <a class="btn btn--hot" href="payment.html" style="--mag-x: 0px; --mag-y: 0px;">🛒 Посмотреть тарифы</a>
+        </div>
+
+        <ul class="tariff-benefits">
+          <li>Мгновенная активация</li>
+          <li>Полный функционал софта</li>
+          <li>Доступ к скам ссылкам
+</li>
+          <li>Версия игры с Токен входом</li>
+          <li>Ключ для регистрации</li>
+          <li>Поддержка 24/7</li>
+        </ul>
+
+        <button class="tariff-showcase__buy" id="compactTariffBuy" type="button" data-open-payment-method="" data-tariff="extra">
+          🛒 Купить сейчас
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="advantages">
+    <div class="container">
+      <h2 class="section-title reveal reveal-pop reveal-delay-4 is-visible">Преимущества нашего софта</h2>
+      <div class="features">
+        <article class="feature reveal reveal-left reveal-delay-1 glass-reactive reveal-pop reveal-delay-2 is-visible"><div class="ico">🛡</div><h3>Банов нет</h3><p>Наш софт работает анонимно и безопасно, никого никогда не банило</p></article>
+        <article class="feature reveal reveal-pop reveal-delay-2 glass-reactive reveal-right reveal-delay-3 is-visible" style="--spot-x: 50%; --spot-y: 20%;"><div class="ico">⚡</div><h3>Мгновенный доступ</h3><p>Получение токена для доступа к аккаунту происходит за считанные секунды после перехода мамонта по ссылке</p></article>
+        <article class="feature reveal reveal-right reveal-delay-3 glass-reactive reveal-pop reveal-delay-4 is-visible" style="--spot-x: 50%; --spot-y: 20%;"><div class="ico">▦</div><h3>Громадный доход</h3><p>Кто угодно может повестись на это, можно скамуть любого мамонта</p></article>
+        <article class="feature reveal reveal-pop reveal-delay-4 glass-reactive reveal-left reveal-delay-1 is-visible" style="--spot-x: 50%; --spot-y: 20%;"><div class="ico">◉</div><h3>Полная анонимность</h3><p>Все операции выполняются без возможности отследить ваше местоположение или личность</p></article>
+      </div>
+    </div>
+  </section>
+
+  
+</main>
+<footer class="footer" id="contacts"><div class="container"><div class="footer__grid">
+  <div><a class="brand" href="index.html">Scum-Link.ru <small>BETA</small></a><p>Лучший софт для популярных игр, который позволяет получить доступ к любому богатому аккаунту. Более 10,000 довольных клиентов уже с нами!</p></div>
+  <div><h4>Навигация</h4><ul><li><a href="#reviews">Отзывы</a></li><li><a href="#how">Как работает</a></li><li><a href="#tariffs">Тарифы</a></li><li><a href="#advantages">Преимущества</a></li></ul></div>
+  <div><h4>Контакты</h4><ul><li><a href="https://t.me/rolexgolda_shop" target="_blank" rel="noopener noreferrer">
+  ЛС админа, поддержка
+</a></li><li><a href="https://t.me/LinkScumMod_Standoff2" target="_blank" rel="noopener noreferrer">
+  ЛС админа, поддержка
+</a></li><li><a href="https://t.me/Univers_Links_SHOP_bot" target="_blank" rel="noopener noreferrer">
+  ЛС админа, поддержка
+</a></li></ul></div>
+</div><div class="footer__bottom">© 2025 LinkScum.ru - Все права защищены</div></div></footer>
+
+<div class="floating"><button class="fab" data-demo-action="" title="Объявления">📣</button><button class="fab" data-demo-action="" title="Чат">●</button><button class="fab" data-demo-action="" title="Избранное">★</button><button class="fab" id="scrollTop" title="Наверх">←</button></div>
+<div class="sticky-buy" id="stickyBuy"><a class="btn btn--hot" href="payment.html">🛒 Купить сейчас</a></div>
+<div class="modal" id="keyModal" aria-hidden="true"><div class="modal__box"><button class="modal__close" data-close-modal="" aria-label="Закрыть">×</button><h2>Активация ключа</h2><form id="activateForm"><div class="form-row"><label for="activationKey">Ваш ключ активации:</label><input class="input" id="activationKey" autocomplete="off" placeholder="Введите ключ, полученный после оплаты"></div><div class="form-actions"><button class="btn btn--hot" type="submit">◉ Активировать</button></div><div class="helper"></div></form></div></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+
+
+<div class="payment-method-modal" id="paymentMethodModal" aria-hidden="true">
+  <div class="payment-method-modal__box" role="dialog" aria-modal="true" aria-labelledby="paymentMethodTitle">
+    <button class="payment-method-modal__close" type="button" data-close-payment-method="" aria-label="Закрыть">×</button>
+    <div class="payment-method-modal__head">
+      <h2 id="paymentMethodTitle">Выберите способ оплаты</h2>
+      <p>Сначала выберите способ оплаты для выбранного тарифа.</p>
+    </div>
+
+    <div class="payment-method-list">
+      <a class="payment-method" href="payment-rub.html" data-payment-method="rub">
+        <span class="payment-method__icon">₽</span>
+        <span class="payment-method__copy">
+          <strong>Рубли (₽)</strong>
+          <span>Перейти к экрану оплаты в рублях</span>
+        </span>
+        <span class="payment-method__arrow">›</span>
+      </a>
+
+      <button class="payment-method" type="button" data-payment-method="gold">
+        <span class="payment-method__icon">G</span>
+        <span class="payment-method__copy">
+          <strong>Голда (G)</strong>
+          <span>Показать оплату через Telegram</span>
+        </span>
+        <span class="payment-method__arrow">›</span>
+      </button>
+
+      <a class="payment-method" href="https://t.me/ScumLinkSupBot" data-payment-method="other">
+        <span class="payment-method__icon">⋯</span>
+        <span class="payment-method__copy">
+          <strong>Другое</strong>
+          <span>Открыть другие способы оплаты</span>
+        </span>
+        <span class="payment-method__arrow">›</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="telegram-pay-modal" id="telegramPayModal" aria-hidden="true">
+  <div class="telegram-pay-modal__box telegram-pay-modal__box--expanded" role="dialog" aria-modal="true" aria-labelledby="telegramPayTitle">
+    <button class="telegram-pay-modal__close" type="button" data-close-telegram-pay="" aria-label="Закрыть">×</button>
+
+    <div class="telegram-pay-layout">
+      <section class="telegram-pay-benefits">
+        <h3>При оплате вы получите:</h3>
+
+        <ul class="telegram-pay-benefit-list">
+          <li class="telegram-pay-benefit">
+            <span class="telegram-pay-benefit__icon">◈</span>
+            <div>
+              <strong>Софт на Standoff 2</strong>
+              <p>Полнофункциональный интерфейс с основными экранами, анимациями и адаптивной версткой.</p>
+            </div>
+          </li>
+
+          <li class="telegram-pay-benefit">
+            <span class="telegram-pay-benefit__icon">↗</span>
+            <div>
+              <strong>Демо-ссылка</strong>
+              <p>Возможность использовать демонстрационные ссылки внутри безопасного локального интерфейса.</p>
+            </div>
+          </li>
+
+          <li class="telegram-pay-benefit">
+            <span class="telegram-pay-benefit__icon">◎</span>
+            <div>
+              <strong>Возможности интерфейса</strong>
+              <p>Полный набор визуальных функций, интерактивных состояний и обновлений оформления.</p>
+            </div>
+          </li>
+
+          <li class="telegram-pay-benefit">
+            <span class="telegram-pay-benefit__icon">✦</span>
+            <div>
+              <strong>Поддержка 24/7</strong>
+              <p>Раздел поддержки и Telegram-интерфейс доступны в единой стилистике проекта.</p>
+            </div>
+          </li>
+        </ul>
+      </section>
+
+      <section class="telegram-pay-details">
+        <h3 class="telegram-pay-details__headline" id="telegramPayTitle">
+          <span id="telegramTariffIcon">G</span>
+          <span id="telegramTariffName">∞ EXTRA</span>
+        </h3>
+
+        <div class="telegram-pay-price telegram-pay-price--compact">
+          <span class="telegram-pay-price__label">Стоимость</span>
+          <strong class="telegram-pay-price__value" id="telegramTariffPrice">2998G</strong>
+          <span class="telegram-pay-price__term" id="telegramTariffTerm">Пожизненный доступ</span>
+        </div>
+
+        <ul class="telegram-pay-feature-list">
+          <li id="goldFeatureAccess">Доступ согласно выбранному тарифу</li>
+          <li>Поддержка обновлений интерфейса</li>
+          <li>Полный набор визуальных функций</li>
+          <li>Доступ к Telegram-сценарию оплаты</li>
+        </ul>
+
+        <div class="telegram-pay-channel telegram-pay-channel--compact">
+          <div class="telegram-pay-channel__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <path d="M21.7 3.3 18.4 19c-.2 1.1-.9 1.4-1.8.9l-5-3.7-2.4 2.3c-.3.3-.5.5-1 .5l.4-5.1 9.3-8.4c.4-.4-.1-.6-.6-.2L5.8 12.5.9 11c-1.1-.3-1.1-1.1.2-1.6L20.2 2c.9-.3 1.7.2 1.5 1.3Z"></path>
+            </svg>
+          </div>
+          <h3>Оплата через Telegram</h3>
+          <p>Этот блок появляется только после выбора способа оплаты <strong>Голда (G)</strong>.</p>
+          <button class="telegram-pay-admin" type="button" data-demo-action="">✈ Написать админу</button>
+        </div>
+
+        <div class="telegram-pay-note telegram-pay-note--compact">
+          <strong>После оплаты:</strong> в этой безопасной реконструкции реальные переводы и выдача ключей не выполняются.
+        </div>
+      </section>
+    </div>
+
+    <button class="telegram-pay-back" type="button" data-back-to-payment-method="">
+      ← Вернуться к выбору способа оплаты
+    </button>
+  </div>
+</div>
+
+
+<div class="activation-error-modal" id="activationErrorModal" aria-hidden="true">
+  <div class="activation-error-modal__box" role="alertdialog" aria-modal="true" aria-labelledby="activationErrorTitle">
+    <button class="activation-error-modal__close" type="button" data-close-activation-error="" aria-label="Закрыть">×</button>
+    <div class="activation-error-modal__icon" aria-hidden="true">!</div>
+    <h2 id="activationErrorTitle">Ошибка активации</h2>
+    <p>Ключ не существует или уже использован кем-то другим</p>
+    <button class="activation-error-modal__button" type="button" data-close-activation-error="">Закрыть</button>
+  </div>
+</div>
+
+<script src="assets/js/app.js"></script><div class="scroll-progress" aria-hidden="true"></div><div class="cursor-aura" aria-hidden="true" style="transform: translate3d(1300px, 625px, 0px);"></div><div class="scroll-progress" aria-hidden="true"></div><div class="cursor-aura" aria-hidden="true" style="transform: translate3d(953px, 539px, 0px);"></div><div class="scroll-progress" aria-hidden="true"></div><div class="scroll-progress" aria-hidden="true"></div><div class="cursor-aura" aria-hidden="true" style="transform: translate3d(1120px, 232px, 0px);"></div><div class="scroll-progress" aria-hidden="true"></div><div class="cursor-aura" aria-hidden="true" style="transform: translate3d(724.237px, 34.0978px, 0px);"></div><div class="scroll-progress" aria-hidden="true"></div><div class="cursor-aura" aria-hidden="true" style="transform: translate3d(825px, 272px, 0px);"></div>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const shell = document.querySelector('.demo-video-shell');
+  const video = shell && shell.querySelector('.demo-video');
+  const playButton = shell && shell.querySelector('.demo-video-play');
+
+  if (!shell || !video || !playButton) return;
+
+  const syncState = () => {
+    shell.classList.toggle('is-playing', !video.paused && !video.ended);
+  };
+
+  playButton.addEventListener('click', async () => {
+    try {
+      await video.play();
+      syncState();
+    } catch (e) {}
+  });
+
+  video.addEventListener('play', syncState);
+  video.addEventListener('pause', syncState);
+  video.addEventListener('ended', () => {
+    shell.classList.remove('is-playing');
+  });
+});
+</script>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const choices = [...document.querySelectorAll('[data-tariff-choice]')];
+  const buy = document.getElementById('compactTariffBuy');
+  if (!choices.length || !buy) return;
+
+  choices.forEach((choice) => {
+    choice.addEventListener('click', () => {
+      choices.forEach((item) => {
+        const active = item === choice;
+        item.classList.toggle('is-active', active);
+        item.setAttribute('aria-pressed', active ? 'true' : 'false');
+      });
+      const tariff = choice.getAttribute('data-tariff-choice') || 'extra';
+      buy.dataset.tariff = tariff;
+    });
+  });
+});
+</script>
+
+</body></html>

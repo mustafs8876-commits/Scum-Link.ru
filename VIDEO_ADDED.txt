@@ -1,0 +1,3 @@
+Видео подключено в index.html в секции #demo.
+Файл: assets/video/interface-demo.mp4
+Постер: assets/img/interface-demo-poster.jpg
