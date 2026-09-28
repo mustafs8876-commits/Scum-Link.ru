@@ -1,129 +1,96 @@
-@media (max-width: 430px) {
-  .wordmark {
-    font-size: clamp(34px, 11.5vw, 46px);
-  }
-
-  .section-title {
-    font-size: 29px;
-  }
-
-  .game-card {
-    min-height: 270px;
-  }
-
-  .fab {
-    width: 40px;
-    height: 40px;
-    border-radius: 13px;
-  }
+:root {
+  --bg: #050506;
+  --bg-soft: #0a0a0d;
+  --surface: rgba(255,255,255,.075);
+  --surface-strong: rgba(255,255,255,.105);
+  --surface-hover: rgba(255,255,255,.13);
+  --surface-dark: rgba(8,8,12,.68);
+  --text: #ffffff;
+  --muted: rgba(255,255,255,.62);
+  --muted-2: rgba(255,255,255,.42);
+  --line: rgba(255,255,255,.13);
+  --line-strong: rgba(255,255,255,.22);
+  --purple: #8b5cf6;
+  --purple-2: #a78bfa;
+  --purple-3: #6d28d9;
+  --violet-glow: rgba(139,92,246,.34);
+  --shadow: 0 24px 70px rgba(0,0,0,.48);
+  --shadow-soft: 0 14px 40px rgba(0,0,0,.3);
+  --glass-blur: 28px;
+  --container: 1180px;
+  --radius-xl: 30px;
+  --radius-lg: 24px;
+  --radius-md: 18px;
 }
 
-/* Compact phones */
-@media (max-width: 390px) {
-  .brand small {
-    display: none;
-  }
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; background: var(--bg); }
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--text);
+  background:
+    radial-gradient(circle at 14% 10%, rgba(139,92,246,.19), transparent 26%),
+    radial-gradient(circle at 86% 24%, rgba(99,102,241,.12), transparent 24%),
+    radial-gradient(circle at 52% 78%, rgba(168,85,247,.09), transparent 28%),
+    linear-gradient(180deg, #050506 0%, #07070a 45%, #030304 100%);
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", Inter, "Segoe UI", Arial, sans-serif;
+  line-height: 1.55;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  z-index: -2;
+  width: 420px;
+  height: 420px;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: .38;
+  pointer-events: none;
+  animation: floatOrb 13s ease-in-out infinite alternate;
+}
+body::before { top: -160px; left: -120px; background: rgba(139,92,246,.55); }
+body::after { right: -150px; bottom: -180px; background: rgba(76,29,149,.5); animation-delay: -6s; }
 
-  .hero p,
-  .game-select__lead,
-  .pay-title p {
-    font-size: 14px;
-  }
+a { color: inherit; text-decoration: none; }
+button, input { font: inherit; }
+button { cursor: pointer; }
+::selection { background: rgba(139,92,246,.48); color: #fff; }
+.container { width: min(var(--container), calc(100% - 44px)); margin-inline: auto; }
 
-  .section {
-    padding: 48px 0;
-  }
-
-  .summary h2 {
-    font-size: 23px;
-  }
+/* glass primitives */
+.header,
+.mobile-nav,
+.notice,
+.version,
+.step__card,
+.plan,
+.feature,
+.quote,
+.welcome-card,
+.info-box,
+.summary,
+.checkout,
+.modal__box,
+.toast,
+.demo-phone img,
+.mock,
+.card-demo,
+.price-box,
+.pay-title {
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(145%);
+  backdrop-filter: blur(var(--glass-blur)) saturate(145%);
 }
 
-/* Very small phones */
-@media (max-width: 340px) {
-  .container {
-    padding-left: 10px;
-    padding-right: 10px;
-  }
-
-  .brand {
-    font-size: 15px;
-  }
-
-  .menu-btn {
-    width: 40px;
-    height: 40px;
-  }
-
-  .wordmark {
-    font-size: 32px;
-  }
-
-  .section-title {
-    font-size: 26px;
-  }
-
-  .modal__box,
-  .payment-method-modal__box,
-  .telegram-pay-modal__box,
-  .activation-error-modal__box {
-    padding-left: 12px !important;
-    padding-right: 12px !important;
-  }
-}
-
-/* Phone landscape */
-@media (max-width: 932px) and (orientation: landscape) and (max-height: 500px) {
-  .header {
-    height: 56px;
-  }
-
-  .mobile-nav {
-    inset: 56px 10px auto;
-    max-height: calc(100dvh - 66px);
-  }
-
-  .hero {
-    min-height: auto;
-    padding: 30px 0 40px;
-  }
-
-  .section {
-    padding: 40px 0;
-  }
-
-  .modal,
-  .payment-method-modal,
-  .telegram-pay-modal,
-  .activation-error-modal {
-    place-items: start center;
-  }
-}
-
-/* Touch devices: avoid desktop-only hover/magnetic work */
-@media (hover: none) and (pointer: coarse) {
-  .cursor-aura,
-  .spark-field {
-    display: none !important;
-  }
-
-  .btn,
-  .game-card,
-  .plan,
-  .feature,
-  .quote,
-  .step__card,
-  .demo-phone img {
-    translate: none !important;
-  }
-
-  .btn:hover,
-  .game-card:hover,
-  .plan:hover,
-  .feature:hover,
-  .quote:hover,
-  .step__card:hover,
-  .demo-phone img:hover {
-    transform: none !important;
-  }
-}
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  height: 76px;
+  background: rgba(7,7,10,.62);
+  border-bottom: 1px solid rgba(255,255,255,.1);
+  box-shadow: 0 8px 34px rgba(0,0,0,.22);
