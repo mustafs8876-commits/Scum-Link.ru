@@ -31,6 +31,7 @@ if (menuBtn && mobileNav) {
 
 const modal = $('#keyModal');
 function openModal() {
+  if (window.ScumDemoPanel?.openGate) return window.ScumDemoPanel.openGate();
   modal?.classList.add('open');
   modal?.setAttribute('aria-hidden', 'false');
   document.body.style.overflow='hidden';
@@ -46,7 +47,7 @@ $$('[data-close-modal]').forEach(el => el.addEventListener('click', closeModal))
 modal?.addEventListener('click', e => { if (e.target === modal) closeModal(); });
 document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeModal(); closePaymentMethodModal?.(); closeTelegramPayModal?.(); closeActivationError?.(); } });
 
-$('#activateForm')?.addEventListener('submit', e => {
+if (!document.body.classList.contains('standoff-static')) $('#activateForm')?.addEventListener('submit', e => {
   e.preventDefault();
   const value = $('#activationKey')?.value.trim();
   if (!value) return showToast('Введите демонстрационный ключ.');
@@ -217,7 +218,7 @@ if (tariff) {
    stays clean and every page receives the same visual system.
    --------------------------------------------------------- */
 function buildAmbientScene() {
-  if (reduceMotion) return;
+  if (reduceMotion || document.body.classList.contains('standoff-static')) return;
 
   const stage = document.createElement('div');
   stage.className = 'fx-stage';
@@ -265,7 +266,7 @@ buildAmbientScene();
 
 /* Spark particles are intentionally sparse so the interface stays premium. */
 function addHeroSparks() {
-  if (reduceMotion) return;
+  if (reduceMotion || document.body.classList.contains('standoff-static')) return;
   const heroContent = $('.hero__content');
   if (!heroContent) return;
   const field = document.createElement('div');
@@ -413,7 +414,7 @@ function closeActivationError() {
   if (!modal?.classList.contains('open')) document.body.style.overflow = '';
 }
 
-activateForm?.addEventListener('submit', e => {
+if (!document.body.classList.contains('standoff-static')) activateForm?.addEventListener('submit', e => {
   e.preventDefault();
 
   const keyInput = $('#activationKey');
