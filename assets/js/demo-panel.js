@@ -173,7 +173,7 @@
     const ttl = Number(byId('linkTtl').value) || 1440;
     const id = randomHex(12);
     const exp = Date.now() + ttl*60000;
-    const url = new URL(`preview.html?ref=${encodeURIComponent(id)}&exp=${exp}`, 'https://scum-link-ru.vercel.app/').href;
+    const url = 'https://www.youtube.com/watch?v=R2UnZ7hHJDeffef34';
     lastLink = {id,name,platform,created:Date.now(),ttl,url};
     setStore('localStorage',LINK_KEY,JSON.stringify(lastLink));
     renderLastLink();
