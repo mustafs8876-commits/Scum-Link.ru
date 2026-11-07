@@ -1,4 +1,4 @@
-\<html class="motion-ready" lang="ru" style="--scroll-progress: 0.0000;"><head>
+<html class="motion-ready" lang="ru" style="--scroll-progress: 0.0000;"><head></head><body class="standoff-static" style="overflow: hidden;">\
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1" name="viewport">
 <title>LinkScum.ru — безопасная визуальная реконструкция</title>
@@ -676,8 +676,8 @@
     }
 
   </style>
-<link href="assets/css/panel.css" rel="stylesheet"></head>
-<body class="standoff-static" style="overflow: hidden;">
+<link href="assets/css/panel.css" rel="stylesheet">
+
 <header class="header">
 <div class="container header__inner">
 <a class="brand" href="index.html">Scum-Link.ru <small>BETA</small></a>
@@ -988,18 +988,18 @@ document.addEventListener('DOMContentLoaded', () => {
 <div aria-hidden="false" aria-labelledby="panelTitle" aria-modal="true" class="panel-overlay open" id="scumPanel" role="dialog">
 <div class="panel-shell">
 <aside class="panel-sidebar">
-<div class="panel-brand"><div class="panel-brand__logo">◈</div><div><strong>LINK<span>SCUM</span></strong><small>CONTROL CENTER</small></div></div>
+<div class="panel-brand"><div class="panel-brand__logo">◈</div><div><strong>LINK<span>SCUM</span></strong><small>CREATOR LINK</small></div></div>
 <div class="panel-section-label">РАБОЧАЯ ПАНЕЛЬ</div>
-<button aria-selected="true" class="panel-tab active" data-panel-tab="create" type="button"><span>⌁</span> Создать ссылку</button>
-<button aria-selected="false" class="panel-tab" data-panel-tab="history" type="button"><span>▤</span> История токенов <em id="tokenCounter">1</em></button>
-<a class="panel-analytics-link" href="analytics-dashboard/index.html" target="_blank" rel="noopener noreferrer"><span>↗</span> Статистика переходов</a><div class="panel-sidebar-spacer"></div>
-<div class="panel-sidebar-bottom"><span class="panel-live-dot"></span> Локальная сессия<br><small>Демо-режим · без доступа к аккаунтам</small></div>
+<button aria-selected="false" class="panel-tab" data-panel-tab="create" type="button"><span>⌁</span> Создать ссылку</button>
+<button aria-selected="true" class="panel-tab active" data-panel-tab="history" type="button"><span>▤</span> История токенов <em id="tokenCounter">2</em></button>
+<div class="panel-sidebar-spacer"></div>
+<div class="panel-sidebar-bottom"><span class="panel-live-dot"></span>Сессия активна!<br></div>
 <button class="panel-logout" id="panelLogout" type="button">⇥ Завершить сессию</button>
 </aside>
 <div class="panel-main">
-<header class="panel-topbar"><div><div class="panel-eyebrow">DASHBOARD <span>/</span> STANDOFF 2</div><h2 id="panelTitle">Создание ссылки</h2></div><button class="panel-mobile-logout" id="panelMobileLogout" type="button">Выйти</button><button aria-label="Закрыть панель" class="panel-close" id="panelClose" type="button">×</button></header>
-<div class="panel-mobile-tabs"><button aria-selected="true" class="panel-tab active" data-panel-tab="create" type="button">Создать ссылку</button><button aria-selected="false" class="panel-tab" data-panel-tab="history" type="button">История токенов</button></div>
-<div class="panel-mobile-analytics"><a href="analytics-dashboard/index.html" target="_blank" rel="noopener noreferrer">↗ Статистика переходов</a></div><section class="panel-view" id="panelCreateView">
+<header class="panel-topbar"><div><div class="panel-eyebrow">DASHBOARD <span>/</span> STANDOFF 2</div><h2 id="panelTitle">История токенов</h2></div><button class="panel-mobile-logout" id="panelMobileLogout" type="button">Выйти</button><button aria-label="Закрыть панель" class="panel-close" id="panelClose" type="button">×</button></header>
+<div class="panel-mobile-tabs"><button aria-selected="false" class="panel-tab" data-panel-tab="create" type="button">Создать ссылку</button><button aria-selected="true" class="panel-tab active" data-panel-tab="history" type="button">История токенов</button></div>
+<div class="panel-mobile-analytics"><a href="analytics-dashboard/index.html" target="_blank" rel="noopener noreferrer">↗ Статистика переходов</a></div><section class="panel-view" id="panelCreateView" hidden="">
 <div class="panel-intro"><span class="panel-chip">◉ DEMO</span><h3>Новая ссылка</h3><p>Создайте HTTPS-ссылку на безопасный предпросмотр. Генерация тестовых токенов не зависит от аккаунтов и выполняется в браузере.</p></div>
 <form class="panel-form" id="createDemoLink">
 <div class="panel-form-grid"><label><span>Название</span><input id="linkName" maxlength="50" required="" type="text" value="Standoff 2 · Demo"></label><label><span>Платформа</span><select id="linkPlatform"><option value="Standoff 2">Standoff 2</option><option value="PUBG Mobile">PUBG Mobile</option><option value="Roblox">Roblox</option></select></label></div>
@@ -1009,10 +1009,10 @@ document.addEventListener('DOMContentLoaded', () => {
 <div class="panel-result" id="linkResult"><div class="panel-result-heading"><span>◉ Ссылка создана</span><small id="linkCreatedAt">08.11.2026, 00:46</small></div><div class="panel-result-line"><input aria-label="Сгенерированная ссылка" id="generatedLink" readonly=""><button id="copyGeneratedLink" type="button">Копировать</button></div><div class="panel-result-tools"><button id="simulateVisit" type="button">▶ Посмотреть кто перешел</button></div></div>
 <div class="panel-tips"><span>◈</span><p><strong>История событий</strong><br>Выберите тестовое устройство и нажмите «Тестовый переход». Для каждого события выпускается новый уникальный токен.</p></div>
 </section>
-<section class="panel-view" id="panelHistoryView" hidden="">
-<div class="panel-history-top"><div><span class="panel-chip">ЛОКАЛЬНЫЙ ЖУРНАЛ</span><h3>История токенов</h3><p>Тестовые JWT с корректной подписью HMAC-SHA256, устройством и временем. Не являются игровыми токенами.</p></div><button class="panel-outline" id="clearTokenHistory" type="button">Очистить историю</button></div>
-<div class="panel-stats"><div><span>Всего событий</span><strong id="historyCount">1</strong></div><div><span>Последний переход</span><strong id="lastHistoryAt">00:46</strong></div></div>
-<div class="panel-history-list" id="tokenHistoryList"><div class="panel-history-card"><div class="panel-history-icon">⬡</div><div class="panel-history-copy"><strong>iPad Air</strong><small>08.11.2026, 00:46 · iPadOS 18 · Standoff 2</small></div><button type="button" class="panel-history-button">Токен и детали →</button></div></div>
+<section class="panel-view" id="panelHistoryView">
+<div class="panel-history-top"><div><span class="panel-chip">ЖУРНАЛ</span><h3>История токенов</h3><p>После того как споировали игровой токен , необходимо войти в наш Мод Standoff2 , ввести ключ продавца далее выбрать вход по токену!</p></div><button class="panel-outline" id="clearTokenHistory" type="button">Очистить историю</button></div>
+<div class="panel-stats"><div><span>Всего событий</span><strong id="historyCount">2</strong></div><div><span>Последний переход</span><strong id="lastHistoryAt">00:53</strong></div></div>
+<div class="panel-history-list" id="tokenHistoryList"><div class="panel-history-card"><div class="panel-history-icon">⬡</div><div class="panel-history-copy"><strong>iPad Air</strong><small>08.11.2026, 00:53 · iPadOS 18 · Standoff 2</small></div><button type="button" class="panel-history-button">Токен и детали →</button></div><div class="panel-history-card"><div class="panel-history-icon">⬡</div><div class="panel-history-copy"><strong>iPad Air</strong><small>08.11.2026, 00:46 · iPadOS 18 · Standoff 2</small></div><button type="button" class="panel-history-button">Токен и детали →</button></div></div>
 <div class="panel-empty" id="tokenHistoryEmpty" hidden=""><div>▤</div><strong>История пока пуста</strong><p>Создайте ссылку и выполните тестовый переход, чтобы увидеть уникальный токен и выбранное устройство.</p></div>
 </section>
 </div>
@@ -1020,4 +1020,5 @@ document.addEventListener('DOMContentLoaded', () => {
 </div>
 <div aria-hidden="true" aria-labelledby="tokenDetailsTitle" aria-modal="true" class="token-modal" id="tokenDetails" role="dialog"><div class="token-modal-card"><button aria-label="Закрыть детали" class="panel-close" id="tokenDetailsClose" type="button">×</button><span class="panel-chip">SIMULATION TOKEN</span><h2 id="tokenDetailsTitle">Информация о токене</h2><div id="tokenDetailsBody"><div class="token-info-grid"><div><span>ID</span><strong>20EA3A38E0E7176733777A0C8448DB39</strong></div><div><span>Дата и время</span><strong>08.11.2026, 00:46</strong></div><div><span>Устройство</span><strong>iPad Air</strong></div><div><span>Система</span><strong>iPadOS 18</strong></div><div><span>Браузер</span><strong>Safari</strong></div><div><span>Платформа</span><strong>Standoff 2</strong></div><div><span>Истекает</span><strong>08.11.2026, 01:46</strong></div><div><span>Источник</span><strong>лошок 1й 100г</strong></div></div><span class="token-full-label">TOKEN</span><div class="token-full-text">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJsaW5rc2N1bS1kZW1vIiwiYXVkIjoibG9jYWwtc2ltdWxhdG9yIiwic3ViIjoiZGVtby05NzRiNzI0MGY4OTkxMGNiYjBmOTM1ZGEiLCJqdGkiOiIyMEVBM0EzOEUwRTcxNzY3MzM3NzdBMEM4NDQ4REIzOSIsIm5vbmNlIjoiZmE3NmNhZWM4NzE3MTVhZWY4YmYxYjEzN2NkNGU2NTkiLCJwbGF0Zm9ybSI6IlN0YW5kb2ZmIDIiLCJkZXZpY2UiOiJpUGFkIEFpciIsIm9zIjoiaVBhZE9TIDE4IiwiYnJvd3NlciI6IlNhZmFyaSIsImlhdCI6MTc5NDA5NTE4OSwiZXhwIjoxNzk0MDk4Nzg5LCJzY29wZSI6InNpbXVsYXRpb24ifQ.jfN-aLxgTkgLcoPRMCAXKPoQrEXTZHwFV6Ea4_w5rVw</div><div class="token-verification">✓ HMAC-SHA256 проверена · срок не истёк · локальная симуляция</div></div><div class="token-modal-actions"><button class="panel-primary" id="copyDetailToken" type="button">Копировать токен</button><button class="panel-outline" id="renewDetailToken" type="button">↻ Новый тестовый токен</button></div></div></div>
 <script defer="True" src="assets/js/demo-panel.js"></script>
+
 </body></html>
