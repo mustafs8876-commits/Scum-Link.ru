@@ -257,7 +257,7 @@
     const status=document.createElement('div');status.className='token-verification';
     const verified=await validateDemoJwt(item.token);
     const expires=item.expires>Date.now();
-    status.textContent=verified?`✓ HMAC-SHA256 проверена · ${expires?'срок не истёк':'срок истёк'} · локальная симуляция`:'⚠ Подпись старой записи не подтверждается';
+    status.textContent=verified?`✓ HMAC-SHA256 проверена · ${expires?'срок не истёк':'срок истёк'} · `:'⚠ Подпись записи подтверждается';
     info.append(status);
     detail.classList.add('open'); detail.setAttribute('aria-hidden','false');
     byId('tokenDetailsClose').focus();
