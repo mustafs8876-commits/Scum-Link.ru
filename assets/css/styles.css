@@ -2282,3 +2282,48 @@ html.motion-ready body { animation: pageFade .5s cubic-bezier(.16,.9,.28,1) both
 .tariff-mini__old {
     text-decoration: none !important;
 }
+
+/* Мягкая анимация фона */
+.hero {
+  background:
+    radial-gradient(
+      ellipse 45% 38% at 22% 50%,
+      rgba(139, 92, 246, 0.13),
+      transparent 85%
+    ),
+    radial-gradient(
+      ellipse 48% 37% at 82% 28%,
+      rgba(168, 85, 247, 0.09),
+      transparent 85%
+    );
+  background-size: 135% 135%;
+  animation: ambientLight 24s ease-in-out infinite alternate;
+}
+
+/* Плавное перемещение света */
+@keyframes ambientLight {
+  0% {
+    background-position: 5% 45%, 95% 30%;
+  }
+  100% {
+    background-position: 85% 55%, 15% 65%;
+  }
+}
+
+/* Едва заметное мерцание звёзд */
+.hero::after {
+  animation: softStars 11s ease-in-out infinite;
+}
+
+@keyframes softStars {
+  0%, 100% { opacity: 0.25; }
+  50% { opacity: 0.55; }
+}
+
+/* Отключение движения по настройкам устройства */
+@media (prefers-reduced-motion: reduce) {
+  .hero,
+  .hero::after {
+    animation: none !important;
+  }
+}
