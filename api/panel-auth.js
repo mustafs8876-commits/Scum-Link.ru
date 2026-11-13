@@ -26,7 +26,7 @@ function validSession(token, secret) {
   if (dot < 1) return false;
   const expiresAt = token.slice(0, dot);
   const signature = token.slice(dot + 1);
-  if (!/^\\d{13}$/.test(expiresAt) || Number(expiresAt) <= Date.now()) return false;
+  if (!/^\d{13}$/.test(expiresAt) || Number(expiresAt) <= Date.now()) return false;
   const expected = crypto.createHmac('sha256', secret).update(expiresAt).digest();
   let supplied;
   try { supplied = Buffer.from(signature, 'hex'); } catch { return false; }
