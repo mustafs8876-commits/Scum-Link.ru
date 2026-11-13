@@ -2,8 +2,6 @@
    or calls any remote endpoint. Key gate is cosmetic client-side access, not auth. */
 (() => {
   'use strict';
-  const ACCESS_KEY = 'QIH_wshjdw_BUYLINK828';
-  const SESSION_KEY = 'linkscum:demo:unlocked:v1';
   const DATA_KEY = 'linkscum:demo:history:v1';
   const LINK_KEY = 'linkscum:demo:lastLink:v1';
   const byId = (id) => document.getElementById(id);
@@ -15,7 +13,7 @@
   const getStore = (type, key) => { try { return window[type].getItem(key); } catch { return null; } };
   const setStore = (type, key, value) => { try { window[type].setItem(key, value); } catch {} };
   const removeStore = (type, key) => { try { window[type].removeItem(key); } catch {} };
-  let authorized = getStore('sessionStorage', SESSION_KEY) === '1';
+  let authorized = false;
   let lastLink = null;
   let currentToken = null;
   let currentRecord = null;
@@ -65,28 +63,87 @@
     panel.classList.remove('open'); panel.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
   }
-  function openGate() { if (authorized) openPanel(); else showGate(); }
+  async function checkPanelSession() {
+    try {
+      const response = await fetch('/api/panel-session', {
+        method: 'GET',
+        credentials: 'same-origin',
+        cache: 'no-store',
+        headers: { 'Accept': 'application/json' }
+      });
+      const data = await response.json().catch(() => ({}));
+      authorized = response.ok && data.ok === true;
+      return authorized;
+    } catch {
+      authorized = false;
+      return false;
+    }
+  }
+
+  async function openGate() {
+    if (await checkPanelSession()) openPanel();
+    else showGate();
+  }
   window.ScumDemoPanel = { openGate };
 
-  byId('activateForm')?.addEventListener('submit', (ev) => {
+  byId('activateForm')?.addEventListener('submit', async (ev) => {
     ev.preventDefault();
+    const form = ev.currentTarget;
+    const submit = form.querySelector('button[type="submit"]');
     const value = byId('activationKey').value.trim();
-    if (value !== ACCESS_KEY) {
-      byId('keyFeedback').textContent = 'Ключ не найден. Проверьте символы и попробуйте ещё раз.';
+    const feedback = byId('keyFeedback');
+    if (!value) {
+      feedback.textContent = 'Введите ключ доступа.';
       byId('activationKey').focus();
       return;
     }
-    authorized = true;
-    setStore('sessionStorage', SESSION_KEY, '1');
-    byId('activationKey').value = '';
-    notify('Доступ к панели открыт');
-    openPanel();
+
+    if (submit) submit.disabled = true;
+    feedback.textContent = 'Проверяем ключ…';
+    try {
+      const response = await fetch('/api/panel-auth', {
+        method: 'POST',
+        credentials: 'same-origin',
+        cache: 'no-store',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({ key: value })
+      });
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok || data.ok !== true) {
+        feedback.textContent = data.error === 'rate_limited'
+          ? 'Слишком много попыток. Попробуйте позже.'
+          : data.error === 'auth_not_configured'
+            ? 'Защита ещё не настроена на сервере.'
+            : 'Ключ не найден. Проверьте символы и попробуйте ещё раз.';
+        byId('activationKey').value = '';
+        byId('activationKey').focus();
+        return;
+      }
+
+      authorized = true;
+      byId('activationKey').value = '';
+      feedback.textContent = '';
+      notify('Доступ к панели открыт');
+      openPanel();
+    } catch {
+      feedback.textContent = 'Не удалось проверить ключ. Проверьте соединение и попробуйте снова.';
+    } finally {
+      if (submit) submit.disabled = false;
+    }
   });
   byId('panelClose')?.addEventListener('click', closePanel);
   panel.addEventListener('click', ev => { if (ev.target === panel) closePanel(); });
-  const logout = () => {
-    authorized = false; removeStore('sessionStorage', SESSION_KEY);
-    closePanel(); notify('Сессия завершена');
+  const logout = async () => {
+    try {
+      await fetch('/api/panel-logout', {
+        method: 'POST',
+        credentials: 'same-origin',
+        cache: 'no-store'
+      });
+    } catch {}
+    authorized = false;
+    closePanel();
+    notify('Сессия завершена');
   };
   byId('panelLogout')?.addEventListener('click', logout);
   byId('panelMobileLogout')?.addEventListener('click', logout);
